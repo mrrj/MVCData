@@ -7,5 +7,7 @@ namespace MVCData.Models
 {
     public class Person
     {
+        int id;
+        string name;
     }
 }
