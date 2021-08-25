@@ -15,13 +15,24 @@ namespace MVCData.Models
 
         public PeopleViewModel All()
         {
-            throw new NotImplementedException();
+            PeopleViewModel people = new PeopleViewModel();
+            return people;
         }
 
         public Person Edit(int id, Person person)
         {
-            throw new NotImplementedException();
+            foreach(Person pers in InMemoryPeopleRepo.people)
+            {
+                if(pers.Id == id)
+                {
+                    //do stuff?
+                    return pers;
+                }
+            }
+
+            throw new Exception("No such person exists");
         }
+
 
         public PeopleViewModel FindBy(PeopleViewModel search)
         {
@@ -30,12 +41,29 @@ namespace MVCData.Models
 
         public Person FindBy(int id)
         {
-            throw new NotImplementedException();
+            foreach (Person pers in InMemoryPeopleRepo.people)
+            {
+                if (pers.Id == id)
+                {
+                    return pers;
+                }
+            }
+
+            throw new Exception("No such person exists");
         }
 
         public bool Remove(int id)
         {
-            throw new NotImplementedException();
+            foreach (Person pers in InMemoryPeopleRepo.people)
+            {
+                if (pers.Id == id)
+                {
+                    InMemoryPeopleRepo.people.Remove(pers);
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

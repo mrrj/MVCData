@@ -7,28 +7,47 @@ namespace MVCData.Models
 {
     public class InMemoryPeopleRepo : IPeopleRepo
     {
-        private static List<Person> people;
-        private static int idCounter;
+        public static List<Person> people;
+        public static int idCounter;
 
-        public Person Create()
+        public Person Create(string name)
         {
-            throw new NotImplementedException();
+            Person person = new Person(idCounter, name);
+            people.Add(person);
+            idCounter++;
+            return person;
         }
 
         public bool Delete(Person person)
         {
-            throw new NotImplementedException();
+            if (people.Contains(person))
+            {
+                people.Remove(person);
+                return true;
+            }
+
+            return false;
         }
 
         public List<Person> Read()
         {
-            throw new NotImplementedException();
+            return people;
+        
         }
 
         public Person Read(int id)
         {
-            throw new NotImplementedException();
+            foreach(Person pers in people)
+            {
+                if(pers.Id == id)
+                {
+                    return pers;
+                }
+
+            }
+            throw new Exception("No such person exists");
         }
+
 
         public Person Update(Person person)
         {

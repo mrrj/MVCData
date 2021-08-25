@@ -8,7 +8,7 @@ namespace MVCData.Models
     public interface IPeopleRepo
     {
 
-        Person Create();
+        Person Create(string name);
         List<Person> Read();
         Person Read(int id);
         Person Update(Person person);
