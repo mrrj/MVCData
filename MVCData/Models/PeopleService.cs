@@ -15,6 +15,12 @@ namespace MVCData.Models
 
         public PeopleViewModel All()
         {
+
+            if(InMemoryPeopleRepo.people.Count == 0)
+            {
+                InMemoryPeopleRepo.CreateDefault();
+            }
+
             PeopleViewModel people = new PeopleViewModel
             {
                 People = InMemoryPeopleRepo.people

@@ -6,7 +6,7 @@ using System.Threading.Tasks;using MVCData.Models.ViewModels;
 
 namespace MVCData.Models
 {
-    interface IPeopleService
+    public interface IPeopleService
     {
         Person Add(CreatePersonViewModel person);
         PeopleViewModel All();
