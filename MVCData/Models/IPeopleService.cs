@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;using MVCData.ViewModels;
+using System.Threading.Tasks;using MVCData.Models.ViewModels;
 
 
 namespace MVCData.Models

@@ -9,9 +9,11 @@ namespace MVCData.Controllers
 {
     public class PeopleController : Controller
     {
-        public IActionResult Index()
+        public IActionResult PeopleIndex()
         {
             return View();
         }
+
+
     }
 }

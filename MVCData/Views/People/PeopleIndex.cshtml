@@ -1,0 +1,28 @@
+﻿@model PeopleViewModel 
+@{
+    ViewData["Title"] = "People";
+}
+
+<h1>People</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>City</th>
+            <th>Phone number</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model.People)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.City</td>
+                    <td>@item.PhoneNumber</td>
+                </tr>
+            }
+    </tbody>
+</table>
+<form></form>
+<form></form>

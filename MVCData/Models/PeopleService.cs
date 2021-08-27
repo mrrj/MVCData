@@ -1,4 +1,4 @@
-﻿using MVCData.ViewModels;
+﻿using MVCData.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +15,10 @@ namespace MVCData.Models
 
         public PeopleViewModel All()
         {
-            PeopleViewModel people = new PeopleViewModel();
+            PeopleViewModel people = new PeopleViewModel
+            {
+                People = InMemoryPeopleRepo.people
+            };
             return people;
         }
 
@@ -25,7 +28,9 @@ namespace MVCData.Models
             {
                 if(pers.Id == id)
                 {
-                    //do stuff?
+                    pers.Name = person.Name;
+                    pers.PhoneNumber = person.PhoneNumber;
+                    pers.City = person.City;
                     return pers;
                 }
             }
@@ -36,7 +41,9 @@ namespace MVCData.Models
 
         public PeopleViewModel FindBy(PeopleViewModel search)
         {
-            throw new NotImplementedException();
+            //not sure what this is supposed to do?
+            //search should be a string no?
+            return new PeopleViewModel();
         }
 
         public Person FindBy(int id)

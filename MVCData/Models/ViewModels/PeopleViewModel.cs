@@ -4,14 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using MVCData.Models;
 
-namespace MVCData.ViewModels
+namespace MVCData.Models.ViewModels
 {
     public class PeopleViewModel
     {
-        List<Person> people;
-        string searchPhrase;
+        private List<Person> people;
+        private string searchPhrase;
 
         public string SearchPhrase { get => searchPhrase; set => searchPhrase = value; }
-
+        public List<Person> People { get => people; set => people = value; }
     }
 }
