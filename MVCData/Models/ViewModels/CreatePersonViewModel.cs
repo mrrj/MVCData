@@ -23,11 +23,5 @@ namespace MVCData.Models.ViewModels
         [StringLength(50)]
         public string City { get => city; set => city = value; }
 
-        public CreatePersonViewModel(int phoneNumber, string name, string city)
-        {
-            this.PhoneNumber = phoneNumber;
-            this.Name = name;
-            this.City = city;
-        }
     }
 }

@@ -5,28 +5,33 @@
 
 <h1>People</h1>
 
+<h3>Search</h3>
+
 <form asp-action="PeopleIndex" method="post">
     <label asp-for="SearchPhrase"></label>
     <input asp-for="SearchPhrase" />
 </form>
 
+<h3>Add Person</h3>
 <form asp-action="Create" asp-controller="People" method="post">
 
-    <label asp-for="Name"></label>
-    <input asp-for="Name" />
-    <span asp-validation-for="Name"></span>
+    <label asp-for="CreatePerson.Name"></label>
+    <input asp-for="CreatePerson.Name" />
+    <span asp-validation-for="CreatePerson.Name"></span>
 
-    <label asp-for="City"></label>
-    <input asp-for="City" />
-    <span asp-validation-for="City"></span>
+    <label asp-for="CreatePerson.City"></label>
+    <input asp-for="CreatePerson.City" />
+    <span asp-validation-for="CreatePerson.City"></span>
 
-    <label asp-for="PhoneNumber"></label>
-    <input asp-for="PhoneNumber" />
-    <span asp-validation-for="PhoneNumber"></span>
+    <label asp-for="CreatePerson.PhoneNumber"></label>
+    <input asp-for="CreatePerson.PhoneNumber" />
+    <span asp-validation-for="CreatePerson.PhoneNumber"></span>
 
     <button type="submit">Create</button>
     <button type="reset">Reset</button>
 </form>
+
+<h3>List of People</h3>
 
 <table>
     <thead>
@@ -45,8 +50,7 @@
                 <td>@item.City</td>
                 <td>@item.PhoneNumber</td>
                 <td>
-                    ><a asp-action="PeopleIndex" asp-controller="People" method="post"
-                        id="personId" value=@item.Id>Remove</a>
+                    <a asp-action="PeopleIndex" asp-controller="People" method="post">Remove</a>
                 </td>
             </tr>
         }
