@@ -50,7 +50,7 @@
                 <td>@item.City</td>
                 <td>@item.PhoneNumber</td>
                 <td>
-                    <a asp-action="PeopleIndex" asp-controller="People" method="post">Remove</a>
+                    <a asp-action="PeopleIndex" asp-controller="People" asp-route-id="@item.Id">Remove</a>
                 </td>
             </tr>
         }

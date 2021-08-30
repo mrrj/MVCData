@@ -23,12 +23,13 @@ namespace MVCData.Controllers
             return View(peopleService.All());
         }
 
-       /* [HttpPost]
-        public IActionResult PeopleIndex(Person person)
+        [HttpPost]
+        public IActionResult Remove(int id)
         {
-            peopleService.Remove(person.Id);
-            return View(peopleService.All());
-        }*/
+            peopleService.Remove(id);
+            return RedirectToAction(nameof(PeopleIndex));
+
+        }
 
         [HttpPost]
         public IActionResult PeopleIndex(PeopleViewModel peopleVM)
@@ -43,10 +44,10 @@ namespace MVCData.Controllers
             if (ModelState.IsValid)
             {
                 peopleService.Add(peopleVM.CreatePerson);
-                return RedirectToAction("PeopleIndex");
 
             }
-            return View(peopleService.All());
+            return RedirectToAction(nameof(PeopleIndex));
+
         }
 
     }
