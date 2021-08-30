@@ -1,28 +1,54 @@
-﻿@model PeopleViewModel 
+﻿@model PeopleViewModel
 @{
     ViewData["Title"] = "People";
 }
 
 <h1>People</h1>
 
+<form asp-action="PeopleIndex" method="post">
+    <label asp-for="SearchPhrase"></label>
+    <input asp-for="SearchPhrase" />
+</form>
+
+<form asp-action="Create" asp-controller="People" method="post">
+
+    <label asp-for="Name"></label>
+    <input asp-for="Name" />
+    <span asp-validation-for="Name"></span>
+
+    <label asp-for="City"></label>
+    <input asp-for="City" />
+    <span asp-validation-for="City"></span>
+
+    <label asp-for="PhoneNumber"></label>
+    <input asp-for="PhoneNumber" />
+    <span asp-validation-for="PhoneNumber"></span>
+
+    <button type="submit">Create</button>
+    <button type="reset">Reset</button>
+</form>
+
 <table>
     <thead>
         <tr>
             <th>Name</th>
             <th>City</th>
-            <th>Phone number</th>
+            <th>Phone Number</th>
+            <th>Remove Person</th>
         </tr>
     </thead>
     <tbody>
-        @foreach(var item in Model.People)
-            {
-                <tr>
-                    <td>@item.Name</td>
-                    <td>@item.City</td>
-                    <td>@item.PhoneNumber</td>
-                </tr>
-            }
+        @foreach (var item in Model.People)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.City</td>
+                <td>@item.PhoneNumber</td>
+                <td>
+                    ><a asp-action="PeopleIndex" asp-controller="People" method="post"
+                        id="personId" value=@item.Id>Remove</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
-<form></form>
-<form></form>

@@ -8,9 +8,15 @@ namespace MVCData.Models
 {
     public class PeopleService : IPeopleService
     {
+        IPeopleRepo peopleRepo;
+
+        public PeopleService(IPeopleRepo peopleRepo)
+        {
+            this.peopleRepo = peopleRepo;
+        }
         public Person Add(CreatePersonViewModel person)
         {
-            throw new NotImplementedException();
+            return peopleRepo.Create(person.Name, person.City, person.PhoneNumber);
         }
 
         public PeopleViewModel All()
@@ -47,9 +53,15 @@ namespace MVCData.Models
 
         public PeopleViewModel FindBy(PeopleViewModel search)
         {
-            //not sure what this is supposed to do?
-            //search should be a string no?
-            return new PeopleViewModel();
+            PeopleViewModel searchResult = new PeopleViewModel();
+            foreach (Person pers in InMemoryPeopleRepo.people)
+            {
+                if (pers.Name.Contains(search.SearchPhrase) || pers.City.Contains(search.SearchPhrase))
+                {
+                    searchResult.People.Add(pers);
+                }
+            }
+            return searchResult;
         }
 
         public Person FindBy(int id)
