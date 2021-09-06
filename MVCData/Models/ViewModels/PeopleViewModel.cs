@@ -15,6 +15,10 @@ namespace MVCData.Models.ViewModels
         public string SearchPhrase { get => searchPhrase; set => searchPhrase = value; }
         public List<Person> People { get => people; set => people = value; }
         public CreatePersonViewModel CreatePerson { get => createPerson; set => createPerson = value; }
- 
+
+
+
     }
+
+
 }

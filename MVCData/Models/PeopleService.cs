@@ -8,15 +8,15 @@ namespace MVCData.Models
 {
     public class PeopleService : IPeopleService
     {
-        IPeopleRepo peopleRepo;
+        IPeopleRepo _peopleRepo;
 
         public PeopleService(IPeopleRepo peopleRepo)
         {
-            this.peopleRepo = peopleRepo;
+            this._peopleRepo = peopleRepo;
         }
         public Person Add(CreatePersonViewModel person)
         {
-            return peopleRepo.Create(person.Name, person.City, person.PhoneNumber);
+            return _peopleRepo.Create(person.Name, person.City, person.PhoneNumber);
         }
 
         public PeopleViewModel All()
@@ -78,7 +78,8 @@ namespace MVCData.Models
             {
                 if (pers.Id == id)
                 {
-                    InMemoryPeopleRepo.people.Remove(pers);
+                    //InMemoryPeopleRepo.people.Remove(pers);
+                    _peopleRepo.Delete(pers);
                     return true;
                 }
             }

@@ -7,13 +7,13 @@
 
 <h3>Search</h3>
 
-<form asp-action="PeopleIndex" method="post">
+<form asp-action="Index" method="post">
     <label asp-for="SearchPhrase"></label>
     <input asp-for="SearchPhrase" />
 </form>
 
 <h3>Add Person</h3>
-<form asp-action="Create" asp-controller="People" method="post">
+<form asp-action="CreatePerson" asp-controller="People" method="post">
 
     <label asp-for="CreatePerson.Name"></label>
     <input asp-for="CreatePerson.Name" />
@@ -50,7 +50,7 @@
                 <td>@item.City</td>
                 <td>@item.PhoneNumber</td>
                 <td>
-                    <a asp-action="PeopleIndex" asp-controller="People" asp-route-id="@item.Id">Remove</a>
+                    <a asp-action="Remove" asp-controller="People" mehod="post" name="id" value="@item.Id">Remove</a>
                 </td>
             </tr>
         }

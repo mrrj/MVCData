@@ -10,43 +10,52 @@ namespace MVCData.Controllers
 {
     public class PeopleController : Controller
     {
-        IPeopleService peopleService = new PeopleService(new InMemoryPeopleRepo());
+        //IPeopleService peopleService = new PeopleService(new InMem = peroryPeopleRepo());
+        IPeopleRepo _peopleRepo;
+        IPeopleService _peopleService;
+
+        public PeopleController(IPeopleRepo peopleRepo, IPeopleService peopleService)
+        {
+            this._peopleRepo = peopleRepo;
+            this._peopleService = peopleService;
+        }
 
         [HttpGet]
-        public IActionResult PeopleIndex()
+        public IActionResult Index()
         {
             if (InMemoryPeopleRepo.people.Count == 0)
             {
                 InMemoryPeopleRepo.CreateDefault();
             }
 
-            return View(peopleService.All());
+            return View(_peopleService.All());
         }
+
 
         [HttpPost]
         public IActionResult Remove(int id)
         {
-            peopleService.Remove(id);
-            return RedirectToAction(nameof(PeopleIndex));
-
+            _peopleService.Remove(id);
+            return RedirectToAction(nameof(Index));
         }
+
 
         [HttpPost]
-        public IActionResult PeopleIndex(PeopleViewModel peopleVM)
+        public IActionResult Index(PeopleViewModel peopleVM)
         {
-            return View(peopleService.FindBy(peopleVM));
+            return View(_peopleService.FindBy(peopleVM));
         }
 
-        
+
         [HttpPost]
         public IActionResult CreatePerson(PeopleViewModel peopleVM)
         {
             if (ModelState.IsValid)
             {
-                peopleService.Add(peopleVM.CreatePerson);
+                _peopleService.Add(peopleVM.CreatePerson);
 
             }
-            return RedirectToAction(nameof(PeopleIndex));
+            return RedirectToAction(nameof(Index));
 
         }
 
