@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 
 namespace MVCData.Models.ViewModels
 {
-    public class PersonViewModel
+    public class RemovePersonViewModel
     {
         int id;
-        string name;
-        string city;
-        string phoneNumber;
+
+        public int Id { get => id; set => id = value; }
     }
 }

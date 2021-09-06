@@ -33,8 +33,9 @@ namespace MVCData.Controllers
 
 
         [HttpPost]
-        public IActionResult Remove(int id)
+        public IActionResult Remove(PeopleViewModel peopleVM)
         {
+            int id = peopleVM.RemovePerson.Id;
             _peopleService.Remove(id);
             return RedirectToAction(nameof(Index));
         }
@@ -50,11 +51,12 @@ namespace MVCData.Controllers
         [HttpPost]
         public IActionResult CreatePerson(PeopleViewModel peopleVM)
         {
-            if (ModelState.IsValid)
-            {
-                _peopleService.Add(peopleVM.CreatePerson);
+            //if (ModelState.IsValid)
+            //{
+            //    _peopleService.Add(peopleVM.CreatePerson);
 
-            }
+            //}
+            _peopleService.Add(peopleVM.CreatePerson);
             return RedirectToAction(nameof(Index));
 
         }
