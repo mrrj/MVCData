@@ -30,13 +30,12 @@ namespace MVCData.Controllers
 
             return View(_peopleService.All());
         }
+        
 
-
-        [HttpPost]
         public IActionResult Remove(int id)
         {
-            _peopleService.Remove(id);
-            return RedirectToAction(nameof(Index));
+            if (_peopleService.Remove(id)) return RedirectToAction(nameof(Index));
+            else return View(_peopleService.All());
         }
 
 
