@@ -78,7 +78,6 @@ namespace MVCData.Models
             {
                 if (pers.Id == id)
                 {
-                    //InMemoryPeopleRepo.people.Remove(pers);
                     _peopleRepo.Delete(pers);
                     return true;
                 }
