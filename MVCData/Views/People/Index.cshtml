@@ -33,32 +33,10 @@
 
 <h3>List of People</h3>
 
+
 @foreach(var person in Model.People)
             {
     <partial name="_PersonView" model="person" />
             }
     
-@*<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>City</th>
-            <th>Phone Number</th>
-            <th>Remove Person</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.People)
-        {
-            <tr>
-                <td>@item.Name</td>
-                <td>@item.City</td>Rem
-                <td>@item.PhoneNumber</td>
-                <td>
-                    <a asp-controller="People" asp-action="Remove"   
-                       asp-route-id="@item.Id">Remove</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>*@
+
