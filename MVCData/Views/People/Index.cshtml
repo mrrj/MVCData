@@ -33,7 +33,12 @@
 
 <h3>List of People</h3>
 
-<table>
+@foreach(var person in Model.People)
+            {
+    <partial name="_PersonView" model="person" />
+            }
+    
+@*<table>
     <thead>
         <tr>
             <th>Name</th>
@@ -56,4 +61,4 @@
             </tr>
         }
     </tbody>
-</table>
+</table>*@

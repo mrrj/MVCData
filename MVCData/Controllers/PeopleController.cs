@@ -10,7 +10,6 @@ namespace MVCData.Controllers
 {
     public class PeopleController : Controller
     {
-        //IPeopleService peopleService = new PeopleService(new InMem = peroryPeopleRepo());
         IPeopleRepo _peopleRepo;
         IPeopleService _peopleService;
 
