@@ -1,0 +1,12 @@
+﻿@model PeopleViewModel
+
+@foreach (Person person in @Model.People)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p>@person.Name</p>
+            </div>
+        </div>
+    </div>
+}

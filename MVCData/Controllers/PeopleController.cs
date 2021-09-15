@@ -26,23 +26,54 @@ namespace MVCData.Controllers
             {
                 InMemoryPeopleRepo.CreateDefault();
             }
-
             return View(_peopleService.All());
         }
-        
 
-        public IActionResult Remove(int id)
+        [HttpGet]
+        public IActionResult ShowPeople()
         {
-            if (_peopleService.Remove(id)) return RedirectToAction(nameof(Index));
-            else return View(_peopleService.All());
+            PeopleViewModel allPersons = _peopleService.All(); 
+            Console.WriteLine("hello ShowPeople");
+            
+            return PartialView("_PeopleView", allPersons);  
+        }
+
+        public IActionResult Details(int id)
+        {
+
+            Person person = _peopleService.FindBy(id);
+            return PartialView("_PersonView", person);
         }
 
 
-        [HttpPost]
-        public IActionResult Index(PeopleViewModel peopleVM)
+        public IActionResult Delete(int id)
         {
-            return View(_peopleService.FindBy(peopleVM));
+            if (_peopleService.Remove(id))
+            {
+                //return status code
+            }
+            else
+            {
+                //return status code
+            }
+
+            return RedirectToAction(nameof(Index));
+
         }
+
+
+        //public IActionResult Remove(int id)
+        //{
+        //    if (_peopleService.Remove(id)) return RedirectToAction(nameof(Index));
+        //    else return View(_peopleService.All());
+        //}
+
+
+        //[HttpPost]
+        //public IActionResult Index(PeopleViewModel peopleVM)
+        //{
+        //    return View(_peopleService.FindBy(peopleVM));
+        //}
 
 
         [HttpPost]

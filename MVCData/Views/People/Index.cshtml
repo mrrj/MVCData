@@ -31,12 +31,61 @@
     <button type="reset">Reset</button>
 </form>
 
-<h3>List of People</h3>
+<button type="button" asp-controller="People" asp-action="ShowPeople"
+        data-target="peopleView" id="peopleButton">
+    People
+</button>
+<div id="peopleView"></div>
+<script>
+    $("#peopleButton").click(function (e) {
+        $.get("People/ShowPeople", function (res) {
+            $("#peopleView").html(res);
+        });
+    });
+
+</script>
+@*<script>
+    $("#peopleButton").click(function (e) {
+        e.preventDefault();
+        var _this = $(this);
+        $.get(_this.attr("href"), function (res) {
+            $('#' + this.data("target")).html(res);
+        });
+    });
+      
+</script>*@
+@*@foreach (var person in Model.People)
+    {
+            <partial name="_PersonView" model ="person" />
+        }*@
 
 
-@foreach(var person in Model.People)
-            {
-    <partial name="_PersonView" model="person" />
-            }
-    
+
+
+@*<input type="number" />
+    <button type="submit" asp-action="Details"
+            data-target="personview" id="details">
+        Details
+    </button>
+    <partial name="_PersonView" />
+    <script>
+        $("#details").click(function () {
+
+            var _this = $(this);
+            $get("People/Details", function (res) {
+                $('#' + _this.data("target")).html(res);
+            });
+
+        });
+    </script>*@
+
+
+
+
+@*<button type="submit">Delete</button>*@
+
+
+
+
+
 
