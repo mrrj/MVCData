@@ -61,20 +61,20 @@
         });
     </script>
 
-@*<button type="submit" asp-controller="People" asp-action="Delete"
+<button type="submit" asp-controller="People" asp-action="Delete"
         id="deleteButton" data-target="peopleView">
     Delete
 </button>
 
 
-
 <script>
     $("#deleteButton").click(function (e) {
-        $.post("People/Delete", function (res) {
+        let id = $("#id").val();
+        $.post("People/Delete/" + id, function (res) {
             $("#peopleView").html(res);
         });
     });
-</script>*@
+</script>
 
 
 

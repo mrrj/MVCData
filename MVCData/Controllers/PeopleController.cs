@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using MVCData.Models;
 using MVCData.Models.ViewModels;
+using System.Net;
+using System.Net.Mime;
 
 namespace MVCData.Controllers
 {
@@ -51,14 +53,14 @@ namespace MVCData.Controllers
         {
             if (_peopleService.Remove(id))
             {
-                //return status code
+                int status = Response.StatusCode = (int)HttpStatusCode.OK;
+                return Json(status + ": Person was deleted");
             }
             else
             {
-                //return status code
+                int status = (int)HttpStatusCode.BadRequest;
+                return Json(status + ": Could not find person");
             }
-
-            return RedirectToAction(nameof(Index));
 
         }
 
@@ -70,11 +72,11 @@ namespace MVCData.Controllers
         //}
 
 
-        //[HttpPost]
-        //public IActionResult Index(PeopleViewModel peopleVM)
-        //{
-        //    return View(_peopleService.FindBy(peopleVM));
-        //}
+        [HttpPost]
+        public IActionResult Index(PeopleViewModel peopleVM)
+        {
+            return View(_peopleService.FindBy(peopleVM));
+        }
 
 
         [HttpPost]
