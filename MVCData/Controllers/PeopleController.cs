@@ -38,6 +38,7 @@ namespace MVCData.Controllers
             return PartialView("_PeopleView", allPersons);  
         }
 
+        [HttpPost]
         public IActionResult Details(int id)
         {
 

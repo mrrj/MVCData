@@ -1,12 +1,27 @@
 ﻿@model PeopleViewModel
 
-@foreach (Person person in @Model.People)
-{
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <p>@person.Name</p>
-            </div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h5>Name</h5>
+        </div>
+        <div class="col">
+            <h5>ID</h5>
         </div>
     </div>
+</div>
+
+
+@foreach (Person person in @Model.People)
+{
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <p>@person.Name</p>
+        </div>
+        <div class="col">
+            <p>@person.Id</p>
+        </div>
+    </div>
+</div>
 }

@@ -12,9 +12,11 @@ namespace MVCData.Models.ViewModels
         private string searchPhrase;
         private CreatePersonViewModel createPerson;
 
+
         public string SearchPhrase { get => searchPhrase; set => searchPhrase = value; }
         public List<Person> People { get => people; set => people = value; }
         public CreatePersonViewModel CreatePerson { get => createPerson; set => createPerson = value; }
+      
     }
 
 
