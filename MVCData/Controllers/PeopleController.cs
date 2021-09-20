@@ -12,12 +12,10 @@ namespace MVCData.Controllers
 {
     public class PeopleController : Controller
     {
-        IPeopleRepo _peopleRepo;
         IPeopleService _peopleService;
 
-        public PeopleController(IPeopleRepo peopleRepo, IPeopleService peopleService)
+        public PeopleController(IPeopleService peopleService)
         {
-            this._peopleRepo = peopleRepo;
             this._peopleService = peopleService;
         }
 
