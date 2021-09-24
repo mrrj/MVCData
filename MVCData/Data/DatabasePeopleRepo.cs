@@ -8,6 +8,13 @@ namespace MVCData.Data
 {
     public class DatabasePeopleRepo : IPeopleRepo
     {
+        private readonly PeopleRepoDbContext _peopleRepoDbContext;
+
+        public DatabasePeopleRepo(PeopleRepoDbContext peopleRepoDbContext)
+        {
+            _peopleRepoDbContext = peopleRepoDbContext;
+        }
+
         public Person Create(string name, string city, int phoneNumber)
         {
             throw new NotImplementedException();
@@ -20,7 +27,7 @@ namespace MVCData.Data
 
         public List<Person> Read()
         {
-            throw new NotImplementedException();
+            return _peopleRepoDbContext.People.ToList();
         }
 
         public Person Read(int id)
