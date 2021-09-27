@@ -9,6 +9,7 @@ namespace MVCData.Data
     public class DatabasePeopleRepo : IPeopleRepo
     {
         private readonly PeopleRepoDbContext _peopleRepoDbContext;
+        private static int idCount;
 
         public DatabasePeopleRepo(PeopleRepoDbContext peopleRepoDbContext)
         {
@@ -17,12 +18,20 @@ namespace MVCData.Data
 
         public Person Create(string name, string city, int phoneNumber)
         {
-            throw new NotImplementedException();
+            idCount++;
+            Person pers = new Person(idCount, name, city, phoneNumber);
+            _peopleRepoDbContext.People.Add(pers);
+            return pers;
         }
 
         public bool Delete(Person person)
         {
-            throw new NotImplementedException();
+            if (_peopleRepoDbContext.People.Contains(person))
+            {
+                _peopleRepoDbContext.People.Remove(person);
+                return true;
+            }
+            else return false;
         }
 
         public List<Person> Read()
@@ -32,12 +41,22 @@ namespace MVCData.Data
 
         public Person Read(int id)
         {
-            throw new NotImplementedException();
+            return _peopleRepoDbContext.People.FirstOrDefault(p => p.Id == id);
         }
 
         public Person Update(Person person)
         {
-            throw new NotImplementedException();
+            Person pers =
+                (Person)(from p in _peopleRepoDbContext.People
+                where p.Id == person.Id
+                select p);
+            pers.Name = person.Name;
+            pers.City = person.City;
+            pers.PhoneNumber = person.PhoneNumber;
+            _peopleRepoDbContext.SaveChanges();
+
+            return pers;
+
         }
     }
 }
