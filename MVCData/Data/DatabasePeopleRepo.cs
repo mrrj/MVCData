@@ -8,8 +8,7 @@ namespace MVCData.Data
 {
     public class DatabasePeopleRepo : IPeopleRepo
     {
-        private readonly PeopleRepoDbContext _peopleRepoDbContext;
-        private static int idCount;
+        private PeopleRepoDbContext _peopleRepoDbContext;
 
         public DatabasePeopleRepo(PeopleRepoDbContext peopleRepoDbContext)
         {
@@ -18,9 +17,10 @@ namespace MVCData.Data
 
         public Person Create(string name, string city, int phoneNumber)
         {
-            idCount++;
-            Person pers = new Person(idCount, name, city, phoneNumber);
+
+            Person pers = new Person( name, city, phoneNumber);
             _peopleRepoDbContext.People.Add(pers);
+            _peopleRepoDbContext.SaveChanges();
             return pers;
         }
 
@@ -29,6 +29,7 @@ namespace MVCData.Data
             if (_peopleRepoDbContext.People.Contains(person))
             {
                 _peopleRepoDbContext.People.Remove(person);
+                _peopleRepoDbContext.SaveChanges();
                 return true;
             }
             else return false;

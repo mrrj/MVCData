@@ -24,14 +24,14 @@ namespace MVCData.Models
 
             PeopleViewModel people = new PeopleViewModel
             {
-                People = InMemoryPeopleRepo.people
+                People = _peopleRepo.Read()
             };
             return people;
         }
 
         public Person Edit(int id, Person person)
         {
-            foreach(Person pers in InMemoryPeopleRepo.people)
+            foreach(Person pers in _peopleRepo.Read())
             {
                 if(pers.Id == id)
                 {
@@ -49,7 +49,7 @@ namespace MVCData.Models
         public PeopleViewModel FindBy(PeopleViewModel search)
         {
             PeopleViewModel searchResult = new PeopleViewModel();
-            foreach (Person pers in InMemoryPeopleRepo.people)
+            foreach (Person pers in _peopleRepo.Read())
             {
                 if (pers.Name.Contains(search.SearchPhrase) || pers.City.Contains(search.SearchPhrase))
                 {
@@ -61,7 +61,7 @@ namespace MVCData.Models
 
         public Person FindBy(int id)
         {
-            foreach (Person pers in InMemoryPeopleRepo.people)
+            foreach (Person pers in _peopleRepo.Read())
             {
                 if (pers.Id == id)
                 {
@@ -74,7 +74,7 @@ namespace MVCData.Models
 
         public bool Remove(int id)
         {
-            foreach (Person pers in InMemoryPeopleRepo.people)
+            foreach (Person pers in _peopleRepo.Read())
             {
                 if (pers.Id == id)
                 {

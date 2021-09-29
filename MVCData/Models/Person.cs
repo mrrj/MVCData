@@ -14,16 +14,16 @@ namespace MVCData.Models
         private string city;
 
      
-        public Person(int id, string name, string city, int phoneNumber)
+        public Person(string name, string city, int phoneNumber)
         {
-            this.Id = id;
+            //this.Id = id;
             this.Name = name;
             this.City = city;
             this.PhoneNumber = phoneNumber;
         }
         [Key]
         public int Id { get => id; set => id = value; }
-        
+
         [Required]
         public string Name { get => name; set => name = value; }
         public int PhoneNumber { get => phoneNumber; set => phoneNumber = value; }

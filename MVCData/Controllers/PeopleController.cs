@@ -22,10 +22,10 @@ namespace MVCData.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            if (InMemoryPeopleRepo.people.Count == 0)
-            {
-                InMemoryPeopleRepo.CreateDefault();
-            }
+        //    if (InMemoryPeopleRepo.people.Count == 0)
+        //    {
+        //        InMemoryPeopleRepo.CreateDefault();
+        //    }
             return View(_peopleService.All());
         }
 
@@ -33,7 +33,6 @@ namespace MVCData.Controllers
         public IActionResult ShowPeople()
         {
             PeopleViewModel allPersons = _peopleService.All(); 
-            Console.WriteLine("hello ShowPeople");
             
             return PartialView("_PeopleView", allPersons);  
         }
