@@ -11,12 +11,11 @@ namespace MVCData.Models
         private int id;
         private string name;
         private int phoneNumber;
-        private string city;
+        private City city;
 
      
-        public Person(string name, string city, int phoneNumber)
+        public Person(string name, City city, int phoneNumber)
         {
-            //this.Id = id;
             this.Name = name;
             this.City = city;
             this.PhoneNumber = phoneNumber;
@@ -27,6 +26,6 @@ namespace MVCData.Models
         [Required]
         public string Name { get => name; set => name = value; }
         public int PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
-        public string City { get => city; set => city = value; }
+        public City City { get => city; set => city = value; }
     }
 }
