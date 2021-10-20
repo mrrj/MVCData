@@ -9,18 +9,16 @@ namespace MVCData.Models.ViewModels
 {
     public class CreatePersonViewModel
     {
-        int phoneNumber;
-        string name;
-        string city;
 
         
-        public int PhoneNumber { get => phoneNumber; set => phoneNumber = value; }  
+        public int PhoneNumber { get; set; }  
         [Required]
         [StringLength(100)]
-        public string Name { get => name; set => name = value; }
+        public string Name { get; set; }
         [Required]
         [StringLength(50)]
-        public string City { get => city; set => city = value; }
+        public Country Country { get; set; }
+        public City City { get; set; }
 
 
     }

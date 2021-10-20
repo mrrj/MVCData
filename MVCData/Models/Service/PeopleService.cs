@@ -1,24 +1,42 @@
-﻿using MVCData.Models.ViewModels;
+﻿using MVCData.Data;
+using MVCData.Models.ViewModels;
+using MVCData.Models.Repo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace MVCData.Models
 {
     public class PeopleService : IPeopleService
     {
         IPeopleRepo _peopleRepo;
+        ICountryRepo _countryRepo;
+        ICityRepo _cityRepo;
+        
 
-        public PeopleService(IPeopleRepo peopleRepo)
+        public PeopleService(IPeopleRepo peopleRepo, ICountryRepo countryRepo, ICityRepo cityRepo)
         {
-            this._peopleRepo = peopleRepo;
+            _peopleRepo = peopleRepo;
+            _countryRepo = countryRepo;
+            _cityRepo = cityRepo;
         }
         public Person Add(CreatePersonViewModel person)
         {
-            return _peopleRepo.Create(person.Name, person.City, person.PhoneNumber);
+
+            return _peopleRepo.Create(person.Name, person.City, person.PhoneNumber) ;
         }
 
+        public City AddCity(string name, Country country)
+        {
+            return _cityRepo.Create(name, country);
+        }
+
+        public Country AddCountry(string name)
+        {
+            return _countryRepo.Create(name);
+        }
         public PeopleViewModel All()
         {
 
@@ -35,10 +53,11 @@ namespace MVCData.Models
             {
                 if(pers.Id == id)
                 {
-                    pers.Name = person.Name;
-                    pers.PhoneNumber = person.PhoneNumber;
-                    pers.City = person.City;
-                    return pers;
+                    //pers.Name = person.Name;
+                    //pers.PhoneNumber = person.PhoneNumber;
+                    //pers.City = person.City;
+                    //return pers;
+                    return _peopleRepo.Update(person);
                 }
             }
 
@@ -51,7 +70,7 @@ namespace MVCData.Models
             PeopleViewModel searchResult = new PeopleViewModel();
             foreach (Person pers in _peopleRepo.Read())
             {
-                if (pers.Name.Contains(search.SearchPhrase) || pers.City.Contains(search.SearchPhrase))
+                if (pers.Name.Contains(search.SearchPhrase) || pers.City.Name.Contains(search.SearchPhrase))
                 {
                     searchResult.People.Add(pers);
                 }
@@ -70,6 +89,19 @@ namespace MVCData.Models
             }
 
             throw new Exception("No such person exists");
+        }
+
+        public PersonDetailsViewModel FindById(int id)
+        {
+            Person pers = _peopleRepo.Read(id);
+            PersonDetailsViewModel personDetails = new PersonDetailsViewModel
+            {
+                Person = pers,
+                City = pers.City,
+                Country = pers.City.Country
+            };
+
+            return personDetails;
         }
 
         public bool Remove(int id)

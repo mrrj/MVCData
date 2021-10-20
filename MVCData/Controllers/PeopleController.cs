@@ -5,28 +5,71 @@ using System.Linq;
 using System.Threading.Tasks;
 using MVCData.Models;
 using MVCData.Models.ViewModels;
+using MVCData.Data;
 using System.Net;
 using System.Net.Mime;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MVCData.Controllers
 {
     public class PeopleController : Controller
     {
         IPeopleService _peopleService;
-
-        public PeopleController(IPeopleService peopleService)
+        PeopleRepoDbContext _peopleRepoDbContext;
+        
+        public PeopleController(IPeopleService peopleService, PeopleRepoDbContext peopleRepoDbContext)
         {
-            this._peopleService = peopleService;
+            _peopleService = peopleService;
+            _peopleRepoDbContext = peopleRepoDbContext;
         }
+
 
         [HttpGet]
         public IActionResult Index()
         {
-        //    if (InMemoryPeopleRepo.people.Count == 0)
-        //    {
-        //        InMemoryPeopleRepo.CreateDefault();
-        //    }
-            return View(_peopleService.All());
+            //    if (InMemoryPeopleRepo.people.Count == 0)
+            //    {
+            //        InMemoryPeopleRepo.CreateDefault();
+            //
+            foreach (City c in _peopleRepoDbContext.Cities)
+            {
+                _peopleRepoDbContext.Cities.Remove(c);
+            }
+            foreach (Country c in _peopleRepoDbContext.Countries)
+            {
+                _peopleRepoDbContext.Countries.Remove(c);
+            }
+
+            Country sweden = _peopleService.AddCountry("Sweden");
+            Country norway = _peopleService.AddCountry("Norway");
+            City gothenburg = _peopleService.AddCity("Gothenburg", sweden);
+            City kungsbacka = _peopleService.AddCity("Kungsbacka", sweden);
+            City oslo = _peopleService.AddCity("Oslo", norway);
+
+            Person eva = new Person
+            {
+                Name = "Eva",
+                PhoneNumber = 000000,
+                City = oslo
+            };
+
+            _peopleRepoDbContext.People.Add(eva);
+            _peopleRepoDbContext.SaveChanges();
+
+            Person adam = new Person
+            {
+                Name = "Adam",
+                PhoneNumber = 111111,
+                City = gothenburg
+            };
+
+            _peopleRepoDbContext.People.Add(adam);
+            _peopleRepoDbContext.SaveChanges();
+
+            ViewData["CountryId"] = new SelectList(_peopleRepoDbContext.Countries, "CountryId", "Name");
+            ViewData["CityId"] = new SelectList(_peopleRepoDbContext.Cities, "CityId", "Name");
+            //return View(_peopleService.All());
+            return View();
         }
 
         [HttpGet]
@@ -41,7 +84,7 @@ namespace MVCData.Controllers
         public IActionResult Details(int id)
         {
 
-            Person person = _peopleService.FindBy(id);
+            PersonDetailsViewModel person = _peopleService.FindById(id);
             return PartialView("_PersonView", person);
         }
 

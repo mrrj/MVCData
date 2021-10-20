@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MVCData.Models;
+using MVCData.Models.Repo;
 using MVCData.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -31,6 +32,8 @@ namespace MVCData
             services.AddMvc();
 
             services.AddScoped<IPeopleRepo, DatabasePeopleRepo>();
+            services.AddScoped<ICountryRepo, CountryRepo>();
+            services.AddScoped<ICityRepo, CityRepo>();
 
             services.AddScoped<IPeopleService, PeopleService>();
 

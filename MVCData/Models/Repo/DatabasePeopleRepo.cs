@@ -15,10 +15,18 @@ namespace MVCData.Data
             _peopleRepoDbContext = peopleRepoDbContext;
         }
 
-        public Person Create(string name, string city, int phoneNumber)
+        public Person Create(string name, City city, int phoneNumber)
         {
 
-            Person pers = new Person( name, city, phoneNumber);
+            Person pers = new Person
+            {
+                Name = name,
+                City = city,
+                PhoneNumber = phoneNumber
+
+            };
+            city.People.Add(pers);
+            _peopleRepoDbContext.Cities.Update(city);
             _peopleRepoDbContext.People.Add(pers);
             _peopleRepoDbContext.SaveChanges();
             return pers;

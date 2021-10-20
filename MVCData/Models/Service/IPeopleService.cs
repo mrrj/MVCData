@@ -8,6 +8,8 @@ namespace MVCData.Models
 {
     public interface IPeopleService
     {
+        public City AddCity(string name, Country country);
+        public Country AddCountry(string name);
         Person Add(CreatePersonViewModel person);
         PeopleViewModel All();
         PeopleViewModel FindBy(PeopleViewModel search);
@@ -15,6 +17,6 @@ namespace MVCData.Models
         Person Edit(int id, Person person);
         bool Remove(int id);
 
-
+        PersonDetailsViewModel FindById(int id);
     }
 }

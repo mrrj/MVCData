@@ -10,7 +10,7 @@ namespace MVCData.Models
         public static List<Person> people = new List<Person>();
         public static int idCounter = 0;
 
-        public Person Create(string name, string city, int phoneNumber)
+        public Person Create(string name, City city, int phoneNumber)
         {
             throw new NotImplementedException();
         }

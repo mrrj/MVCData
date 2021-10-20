@@ -1,17 +1,20 @@
 ﻿
-@model Person
+@model PersonDetailsViewModel
 
 
-<div class="container" id="personview">
+<div class="container">
     <div class="row">
         <div class="col">
-            <p>@Model.Name</p>
+            <p>@Model.Person.Name</p>
         </div>
         <div class="col">
-            <p>@Model.City</p>
+            <p>@Model.Country.Name</p>
         </div>
         <div class="col">
-            <p>@Model.PhoneNumber</p>
+            <p>@Model.City.Name</p>
+        </div>
+        <div class="col">
+            <p>@Model.Person.PhoneNumber</p>
         </div>
         @*<div class="col">
             <a asp-controller="People" asp-action="Remove"
