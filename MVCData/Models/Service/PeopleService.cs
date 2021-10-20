@@ -97,8 +97,8 @@ namespace MVCData.Models
             PersonDetailsViewModel personDetails = new PersonDetailsViewModel
             {
                 Person = pers,
-                City = pers.City,
-                Country = pers.City.Country
+                City = GetCity(pers.CityId),
+                Country = GetCountry(pers.City.CountryId)
             };
 
             return personDetails;
@@ -116,6 +116,15 @@ namespace MVCData.Models
             }
 
             return false;
+        }
+
+        public City GetCity(int id)
+        {
+            return _cityRepo.Read(id);
+        }
+        public Country GetCountry(int id)
+        {
+            return _countryRepo.Read(id);
         }
     }
 }

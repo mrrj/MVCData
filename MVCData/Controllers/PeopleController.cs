@@ -31,40 +31,40 @@ namespace MVCData.Controllers
             //    {
             //        InMemoryPeopleRepo.CreateDefault();
             //
-            foreach (City c in _peopleRepoDbContext.Cities)
-            {
-                _peopleRepoDbContext.Cities.Remove(c);
-            }
-            foreach (Country c in _peopleRepoDbContext.Countries)
-            {
-                _peopleRepoDbContext.Countries.Remove(c);
-            }
+            //foreach (City c in _peopleRepoDbContext.Cities)
+            //{
+            //    _peopleRepoDbContext.Cities.Remove(c);
+            //}
+            //foreach (Country c in _peopleRepoDbContext.Countries)
+            //{
+            //    _peopleRepoDbContext.Countries.Remove(c);
+            //}
 
-            Country sweden = _peopleService.AddCountry("Sweden");
-            Country norway = _peopleService.AddCountry("Norway");
-            City gothenburg = _peopleService.AddCity("Gothenburg", sweden);
-            City kungsbacka = _peopleService.AddCity("Kungsbacka", sweden);
-            City oslo = _peopleService.AddCity("Oslo", norway);
+            //Country sweden = _peopleService.AddCountry("Sweden");
+            //Country norway = _peopleService.AddCountry("Norway");
+            //City gothenburg = _peopleService.AddCity("Gothenburg", sweden);
+            //City kungsbacka = _peopleService.AddCity("Kungsbacka", sweden);
+            //City oslo = _peopleService.AddCity("Oslo", norway);
 
-            Person eva = new Person
-            {
-                Name = "Eva",
-                PhoneNumber = 000000,
-                City = oslo
-            };
+            //Person eva = new Person
+            //{
+            //    Name = "Eva",
+            //    PhoneNumber = 000000,
+            //    City = oslo
+            //};
 
-            _peopleRepoDbContext.People.Add(eva);
-            _peopleRepoDbContext.SaveChanges();
+            //_peopleRepoDbContext.People.Add(eva);
+            //_peopleRepoDbContext.SaveChanges();
 
-            Person adam = new Person
-            {
-                Name = "Adam",
-                PhoneNumber = 111111,
-                City = gothenburg
-            };
+            //Person adam = new Person
+            //{
+            //    Name = "Adam",
+            //    PhoneNumber = 111111,
+            //    City = gothenburg
+            //};
 
-            _peopleRepoDbContext.People.Add(adam);
-            _peopleRepoDbContext.SaveChanges();
+            //_peopleRepoDbContext.People.Add(adam);
+            //_peopleRepoDbContext.SaveChanges();
 
             ViewData["CountryId"] = new SelectList(_peopleRepoDbContext.Countries, "CountryId", "Name");
             ViewData["CityId"] = new SelectList(_peopleRepoDbContext.Cities, "CityId", "Name");
