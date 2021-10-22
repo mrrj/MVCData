@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;using MVCData.Models.ViewModels;
 
 
-namespace MVCData.Models
+namespace MVCData.Models.Service
 {
     public interface IPeopleService
     {
@@ -20,6 +20,7 @@ namespace MVCData.Models
         PersonDetailsViewModel FindById(int id);
 
         public City GetCity(int id);
+        public List<City> AllCities();
         public Country GetCountry(int id);
     }
 }

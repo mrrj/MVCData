@@ -29,7 +29,6 @@ namespace MVCData.Models.Repo
             };
             city.People.Add(pers);
             _peopleRepoDbContext.Cities.Update(city);
-            _peopleRepoDbContext.SaveChanges();
             _peopleRepoDbContext.People.Add(pers);
             _peopleRepoDbContext.SaveChanges();
             return pers;

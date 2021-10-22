@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace MVCData.Models
+namespace MVCData.Models.Service
 {
     public class PeopleService : IPeopleService
     {
@@ -24,8 +24,11 @@ namespace MVCData.Models
         }
         public Person Add(CreatePersonViewModel person)
         {
+            string name = person.Name;
+            int phoneNumber = person.PhoneNumber;
+            City city = GetCity(person.CityId);
 
-            return _peopleRepo.Create(person.Name, person.City, person.PhoneNumber) ;
+            return _peopleRepo.Create(name, city, phoneNumber) ;
         }
 
         public City AddCity(string name, Country country)
@@ -122,6 +125,11 @@ namespace MVCData.Models
         public City GetCity(int id)
         {
             return _cityRepo.Read(id);
+        }
+
+        public List<City> AllCities()
+        {
+            return _cityRepo.Read();
         }
         public Country GetCountry(int id)
         {

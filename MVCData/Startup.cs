@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using MVCData.Models;
 using MVCData.Models.Repo;
 using MVCData.Data;
+using MVCData.Models.Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 

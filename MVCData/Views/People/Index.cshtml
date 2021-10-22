@@ -15,17 +15,23 @@
 <h3>Add Person</h3>
 <form asp-action="CreatePerson" asp-controller="People" method="post">
 
-    <label asp-for="@Model.CreatePerson.Name"></label>
-    <input asp-for="@Model.CreatePerson.Name" />
-    <span asp-validation-for="@Model.CreatePerson.Name"></span>
+    <label asp-for="CreatePerson.Name"></label>
+    <input asp-for="CreatePerson.Name" />
+    <span asp-validation-for="CreatePerson.Name"></span>
 
-    <label class="control-label">City:</label>
-    <select asp-for="@Model.CreatePerson.City" class="form-control" asp-items="@Model.CreatePerson.SelectCity"></select>
-    @*<span asp-validation-for="CreatePerson.City"></span>*@
 
-    <label asp-for="@Model.CreatePerson.PhoneNumber"></label>
-    <input asp-for="@Model.CreatePerson.PhoneNumber" />
-    <span asp-validation-for="@Model.CreatePerson.PhoneNumber"></span>
+    <label asp-for="CreatePerson.CityId"></label>
+    <input asp-for="CreatePerson.CityId" />
+    <span asp-validation-for="CreatePerson.CityId"></span>
+
+
+    @*<label asp-for="CreatePerson.CityId">City:</label>
+    <select asp-for="CreatePerson.CityId" class="form-control" asp-items="@Model.CreatePerson.SelectCity"></select>
+    <span asp-validation-for="CreatePerson.CityId"></span>*@
+
+    <label asp-for="CreatePerson.PhoneNumber"></label>
+    <input asp-for="CreatePerson.PhoneNumber" />
+    <span asp-validation-for="CreatePerson.PhoneNumber"></span>
 
     <button type="submit">Create</button>
     <button type="reset">Reset</button>
