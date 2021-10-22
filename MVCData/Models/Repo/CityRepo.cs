@@ -26,10 +26,10 @@ namespace MVCData.Models.Repo
                 {
                     Name = name
                 };
-
-                country.Cities.Add(city);
-                //_countryRepo.Update(country);
                 _context.Cities.Add(city);
+                _context.SaveChanges();
+                country.Cities.Add(city);
+                _countryRepo.Update(country);        
                 _context.SaveChanges();
                 return city;
             }

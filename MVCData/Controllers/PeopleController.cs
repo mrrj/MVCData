@@ -9,17 +9,21 @@ using MVCData.Data;
 using System.Net;
 using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using MVCData.Models.Repo;
 
 namespace MVCData.Controllers
 {
     public class PeopleController : Controller
     {
         IPeopleService _peopleService;
+        ICountryRepo _countryRepo;
         PeopleRepoDbContext _peopleRepoDbContext;
         
-        public PeopleController(IPeopleService peopleService, PeopleRepoDbContext peopleRepoDbContext)
+        public PeopleController(IPeopleService peopleService, ICountryRepo countryRepo,
+            PeopleRepoDbContext peopleRepoDbContext)
         {
             _peopleService = peopleService;
+            _countryRepo = countryRepo;
             _peopleRepoDbContext = peopleRepoDbContext;
         }
 
@@ -30,7 +34,7 @@ namespace MVCData.Controllers
             //    if (InMemoryPeopleRepo.people.Count == 0)
             //    {
             //        InMemoryPeopleRepo.CreateDefault();
-            //
+
             //foreach (City c in _peopleRepoDbContext.Cities)
             //{
             //    _peopleRepoDbContext.Cities.Remove(c);
@@ -38,6 +42,10 @@ namespace MVCData.Controllers
             //foreach (Country c in _peopleRepoDbContext.Countries)
             //{
             //    _peopleRepoDbContext.Countries.Remove(c);
+            //}
+            //foreach (Person p in _peopleRepoDbContext.People)
+            //{
+            //    _peopleRepoDbContext.Remove(p);
             //}
 
             //Country sweden = _peopleService.AddCountry("Sweden");
@@ -66,10 +74,17 @@ namespace MVCData.Controllers
             //_peopleRepoDbContext.People.Add(adam);
             //_peopleRepoDbContext.SaveChanges();
 
-            ViewData["CountryId"] = new SelectList(_peopleRepoDbContext.Countries, "CountryId", "Name");
-            ViewData["CityId"] = new SelectList(_peopleRepoDbContext.Cities, "CityId", "Name");
-            //return View(_peopleService.All());
-            return View();
+            PeopleViewModel peopleVM = new PeopleViewModel();
+
+            //peopleVM.CreatePerson = new CreatePersonViewModel
+            //{
+            //    SelectCity = new SelectList(_peopleRepoDbContext.Cities, "CityId", "Name")
+            //};
+
+            //ViewData["Country"] = new SelectList(_peopleRepoDbContext.Countries, "CountryId", "Name");
+            //ViewData["City"] = new SelectList(_peopleRepoDbContext.Cities, "CityId", "Name");
+
+            return View(peopleVM);
         }
 
         [HttpGet]
@@ -119,11 +134,15 @@ namespace MVCData.Controllers
         }
 
 
+        //[HttpGet]
+
+      
         [HttpPost]
         public IActionResult CreatePerson(PeopleViewModel peopleVM)
         {
             if (ModelState.IsValid)
             {
+
                 _peopleService.Add(peopleVM.CreatePerson);
 
             }

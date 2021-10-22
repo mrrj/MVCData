@@ -18,5 +18,8 @@ namespace MVCData.Models
         bool Remove(int id);
 
         PersonDetailsViewModel FindById(int id);
+
+        public City GetCity(int id);
+        public Country GetCountry(int id);
     }
 }

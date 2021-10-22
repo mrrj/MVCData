@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MVCData.Models
+namespace MVCData.Models.Repo
 {
     public interface IPeopleRepo
     {

@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MVCData.Data;
 using MVCData.Models;
 
-namespace MVCData.Data
+namespace MVCData.Models.Repo
 {
     public class DatabasePeopleRepo : IPeopleRepo
     {
         private PeopleRepoDbContext _peopleRepoDbContext;
+        CityRepo _cityrepo;
 
         public DatabasePeopleRepo(PeopleRepoDbContext peopleRepoDbContext)
         {
@@ -27,6 +29,7 @@ namespace MVCData.Data
             };
             city.People.Add(pers);
             _peopleRepoDbContext.Cities.Update(city);
+            _peopleRepoDbContext.SaveChanges();
             _peopleRepoDbContext.People.Add(pers);
             _peopleRepoDbContext.SaveChanges();
             return pers;

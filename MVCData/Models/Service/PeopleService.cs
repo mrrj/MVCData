@@ -70,7 +70,8 @@ namespace MVCData.Models
             PeopleViewModel searchResult = new PeopleViewModel();
             foreach (Person pers in _peopleRepo.Read())
             {
-                if (pers.Name.Contains(search.SearchPhrase) || pers.City.Name.Contains(search.SearchPhrase))
+                City city = GetCity(pers.CityId);
+                if (pers.Name.Contains(search.SearchPhrase) || city.Name.Contains(search.SearchPhrase))
                 {
                     searchResult.People.Add(pers);
                 }

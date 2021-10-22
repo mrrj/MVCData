@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
-
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MVCData.Models.ViewModels
 {
@@ -13,12 +13,9 @@ namespace MVCData.Models.ViewModels
         
         public int PhoneNumber { get; set; }  
         [Required]
-        [StringLength(100)]
         public string Name { get; set; }
-        [Required]
-        [StringLength(50)]
-        public Country Country { get; set; }
         public City City { get; set; }
+        public SelectList SelectCity { get; set; }
 
 
     }
