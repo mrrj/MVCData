@@ -74,7 +74,9 @@ namespace MVCData.Models.Service
             foreach (Person pers in _peopleRepo.Read())
             {
                 City city = GetCity(pers.CityId);
-                if (pers.Name.Contains(search.SearchPhrase) || city.Name.Contains(search.SearchPhrase))
+                Country country = GetCountry(city.CountryId);
+                if (pers.Name.Contains(search.SearchPhrase) || city.Name.Contains(search.SearchPhrase)
+                    || country.Name.Contains(search.SearchPhrase))
                 {
                     searchResult.People.Add(pers);
                 }

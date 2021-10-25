@@ -18,13 +18,15 @@ namespace MVCData.Controllers
     {
         IPeopleService _peopleService;
         ICountryRepo _countryRepo;
+        ICityRepo _cityRepo;
         PeopleRepoDbContext _peopleRepoDbContext;
         
-        public PeopleController(IPeopleService peopleService, ICountryRepo countryRepo,
+        public PeopleController(IPeopleService peopleService, ICountryRepo countryRepo, ICityRepo cityRepo,
             PeopleRepoDbContext peopleRepoDbContext)
         {
             _peopleService = peopleService;
             _countryRepo = countryRepo;
+            _cityRepo = cityRepo;
             _peopleRepoDbContext = peopleRepoDbContext;
         }
 
@@ -33,14 +35,43 @@ namespace MVCData.Controllers
         public IActionResult Index()
         {
 
-            PeopleViewModel peopleVM = new PeopleViewModel();
+            //PeopleViewModel peopleVM = new PeopleViewModel();
 
-            peopleVM.CreatePerson = new CreatePersonViewModel
-            {
-                SelectCity = new SelectList(_peopleRepoDbContext.Cities, "CityId", "Name")
-            };
+            //peopleVM.CreatePerson = new CreatePersonViewModel
+            //{
+            //    SelectCity = new SelectList(_peopleRepoDbContext.Cities, "CityId", "Name")
+            //};
+
+
+            //TestSetup();
+            
 
             return View();
+        }
+
+        public IActionResult TestSetup()
+        {
+            foreach (City c in _peopleRepoDbContext.Cities)
+            {
+                _peopleRepoDbContext.Cities.Remove(c);
+            }
+
+            foreach (Country c in _peopleRepoDbContext.Countries)
+            {
+                _peopleRepoDbContext.Countries.Remove(c);
+            }
+
+            foreach (Person p in _peopleRepoDbContext.People)
+            {
+                _peopleRepoDbContext.People.Remove(p);
+            }
+
+            Country sweden = _countryRepo.Create("Sweden");
+            City goteborg = _cityRepo.Create("Göteborg", sweden);
+            City halmstad = _cityRepo.Create("Halmstad", sweden);
+
+            return RedirectToAction(nameof(Index));
+
         }
 
         [HttpGet]
@@ -86,7 +117,9 @@ namespace MVCData.Controllers
         [HttpPost]
         public IActionResult Index(PeopleViewModel peopleVM)
         {
-            return View(_peopleService.FindBy(peopleVM));
+            PeopleViewModel result = _peopleService.FindBy(peopleVM);
+            //return View(result);
+            return PartialView("_PeopleView", result);
         }
 
 
@@ -96,6 +129,7 @@ namespace MVCData.Controllers
         
         {
             CreatePersonViewModel createPerson = peopleVM.CreatePerson;
+
             if (ModelState.IsValid)
             {
 

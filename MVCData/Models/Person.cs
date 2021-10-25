@@ -8,19 +8,6 @@ namespace MVCData.Models
 {
     public class Person
     {
-        //private int id;
-        //private string name;
-        //private int phoneNumber;
-        //private string city;
-
-     
-        //public Person(string name, string city, int phoneNumber)
-        //{
-        //    //this.Id = id;
-        //    this.Name = name;
-        //    this.City = city;
-        //    this.PhoneNumber = phoneNumber;
-        //}
         [Key]
         public int Id { get; set; }
 

@@ -10,11 +10,12 @@ namespace MVCData.Models.Repo
     public class DatabasePeopleRepo : IPeopleRepo
     {
         private PeopleRepoDbContext _peopleRepoDbContext;
-        CityRepo _cityrepo;
+        ICityRepo _cityRepo;
 
-        public DatabasePeopleRepo(PeopleRepoDbContext peopleRepoDbContext)
+        public DatabasePeopleRepo(PeopleRepoDbContext peopleRepoDbContext, ICityRepo cityRepo)
         {
             _peopleRepoDbContext = peopleRepoDbContext;
+            _cityRepo = cityRepo;
         }
 
         public Person Create(string name, City city, int phoneNumber)
@@ -28,7 +29,6 @@ namespace MVCData.Models.Repo
 
             };
             city.People.Add(pers);
-            _peopleRepoDbContext.Cities.Update(city);
             _peopleRepoDbContext.People.Add(pers);
             _peopleRepoDbContext.SaveChanges();
             return pers;

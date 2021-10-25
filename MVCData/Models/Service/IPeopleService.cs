@@ -21,6 +21,8 @@ namespace MVCData.Models.Service
 
         public City GetCity(int id);
         public List<City> AllCities();
+
+        //public City AddCity();
         public Country GetCountry(int id);
     }
 }

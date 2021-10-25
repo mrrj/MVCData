@@ -16,7 +16,8 @@ namespace MVCData.Models.ViewModels
         [Required]
         public string Name { get; set; }
         public int CityId { get; set; }
-        public SelectList SelectCity { get; set; }
+
+        //public SelectList SelectCity { get; set; }
 
 
     }

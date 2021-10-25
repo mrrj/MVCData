@@ -26,10 +26,8 @@ namespace MVCData.Models.Repo
                 {
                     Name = name
                 };
-                _context.Cities.Add(city);
-                _context.SaveChanges();
                 country.Cities.Add(city);
-                _countryRepo.Update(country);        
+                _context.Cities.Add(city);
                 _context.SaveChanges();
                 return city;
             }
@@ -46,10 +44,11 @@ namespace MVCData.Models.Repo
         }
         public City Update(City city)
         {
-            City ci =
-                (City)(from c in _context.Cities
-                          where c.CityId == city.CountryId
-                          select c);
+            //City ci =
+            //    (City)(from c in _context.Cities
+            //              where c.CityId == city.CountryId
+            //              select c);
+            City ci =_context.Cities.Find(city.CityId);
             ci.Name = city.Name;
             ci.People = city.People;
             _context.SaveChanges();
