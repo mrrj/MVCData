@@ -12,7 +12,7 @@ namespace MVCData.Models
         public int LanguageId { get; set; }
         [Required]
         public string Name { get; set; }
-        public List<Person> People { get; set; }
+        public List<PersonLanguage> PersonLanguages { get; set; }
 
     }
 }

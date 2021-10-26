@@ -13,13 +13,16 @@ namespace MVCData.Data
         { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) 
-        { 
+        {
+            modelBuilder.Entity<PersonLanguage>().HasKey(pl => new { pl.PersonId, pl.LanguageId });
         
         }
 
         public DbSet<Person> People { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<PersonLanguage> PersonLanguages { get; set; }
 
     }
 }
