@@ -1,0 +1,48 @@
+﻿@model AddLanguageViewModel
+
+
+<h5>Available languages:</h5>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Language
+            </th>
+            <th>
+                Id
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Language l in Model.AvailableLanguages)
+        {
+            <tr>
+                <td>
+                    @l.Name
+                </td>
+                <td>
+                    @l.LanguageId
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Add Language</h3>
+<form asp-action="AddLanguageToPerson" asp-controller="People" method="post" data-target="peopleView">
+
+    <label asp-for="PersonId"></label>
+    <input asp-for="PersonId" />
+    <span asp-validation-for="PersonId"></span>
+
+    <label asp-for="LanguageId"></label>
+    <input asp-for="LanguageId" />
+    <span asp-validation-for="LanguageId"></span>
+
+    <button type="submit">Add language</button>
+    <button type="reset">Reset</button>
+</form>
+
+
+

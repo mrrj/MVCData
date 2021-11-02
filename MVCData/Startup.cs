@@ -35,6 +35,7 @@ namespace MVCData
             services.AddScoped<IPeopleRepo, DatabasePeopleRepo>();
             services.AddScoped<ICountryRepo, CountryRepo>();
             services.AddScoped<ICityRepo, CityRepo>();
+            services.AddScoped<ILanguageRepo, LanguageRepo>();
 
             services.AddScoped<IPeopleService, PeopleService>();
 

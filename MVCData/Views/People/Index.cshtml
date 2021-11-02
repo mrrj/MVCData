@@ -7,7 +7,7 @@
 
 <h3>Search</h3>
 
-<form asp-action="Index" method="post" >
+<form asp-action="Index" method="post">
     <label asp-for="SearchPhrase"></label>
     <input asp-for="SearchPhrase" />
 </form>
@@ -26,8 +26,8 @@
 
 
     @*<label asp-for="CreatePerson.CityId">City:</label>
-    <select asp-for="CreatePerson.CityId" class="form-control" asp-items="@Model.CreatePerson.SelectCity"></select>
-    <span asp-validation-for="CreatePerson.CityId"></span>*@
+        <select asp-for="CreatePerson.CityId" class="form-control" asp-items="@Model.CreatePerson.SelectCity"></select>
+        <span asp-validation-for="CreatePerson.CityId"></span>*@
 
     <label asp-for="CreatePerson.PhoneNumber"></label>
     <input asp-for="CreatePerson.PhoneNumber" />
@@ -37,11 +37,31 @@
     <button type="reset">Reset</button>
 </form>
 
+<br />
+
 <button type="button" asp-controller="People" asp-action="ShowPeople"
         data-target="peopleView" id="peopleButton">
     People
 </button>
+
+<label for="id">Enter ID:</label>
+<input type="number" id="id" />
+<button type="submit" asp-controller="People" asp-action="Details"
+        id="detailsButton" data-target="peopleView">
+    Get Details
+</button>
+<button type="submit" asp-controller="People" asp-action="Delete"
+        id="deleteButton" data-target="peopleView">
+    Delete
+</button>
+<button type="submit" asp-controller="People" asp-action="AddLanguage"
+        id="languageButton" data-target="peopleView">
+    Add language
+</button>
+
 <div id="peopleView"></div>
+
+
 <script>
     $("#peopleButton").click(function (e) {
         $.get("People/ShowPeople", function (res) {
@@ -49,38 +69,29 @@
         });
     });
 
-</script>
-
-<label for="id">Enter ID:</label>
-    <input type="number" id="id" />
-    <button type="submit" asp-controller="People" asp-action="Details"
-            id="detailsButton" data-target="peopleView">
-        Get Details
-    </button>
-
-    <script>      
-        $("#detailsButton").click(function (e) {
-            let id = $("#id").val();
-            $.post("People/Details/" + id, function (res) {
-                $("#peopleView").html(res);
-            });
+    $("#detailsButton").click(function (e) {
+        let id = $("#id").val();
+        $.post("People/Details/" + id, function (res) {
+            $("#peopleView").html(res);
         });
-    </script>
+    });
 
-<button type="submit" asp-controller="People" asp-action="Delete"
-        id="deleteButton" data-target="peopleView">
-    Delete
-</button>
-
-
-<script>
     $("#deleteButton").click(function (e) {
         let id = $("#id").val();
         $.post("People/Delete/" + id, function (res) {
             $("#peopleView").html(res);
         });
     });
+
+    $("#languageButton").click(function (e) {
+        e.preventDefault();
+        let id = $("#id").val();
+        $.post("People/AddLanguage/" + id, function (res) {
+            $("#peopleView").html(res);
+        });
+    });
 </script>
+
 
 
 

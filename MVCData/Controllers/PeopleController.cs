@@ -19,14 +19,18 @@ namespace MVCData.Controllers
         IPeopleService _peopleService;
         ICountryRepo _countryRepo;
         ICityRepo _cityRepo;
+        ILanguageRepo _languageRepo;
+        IPeopleRepo _peopleRepo;
         PeopleRepoDbContext _peopleRepoDbContext;
         
         public PeopleController(IPeopleService peopleService, ICountryRepo countryRepo, ICityRepo cityRepo,
-            PeopleRepoDbContext peopleRepoDbContext)
+            ILanguageRepo languageRepo, IPeopleRepo peopleRepo, PeopleRepoDbContext peopleRepoDbContext)
         {
             _peopleService = peopleService;
             _countryRepo = countryRepo;
             _cityRepo = cityRepo;
+            _languageRepo = languageRepo;
+            _peopleRepo = peopleRepo;
             _peopleRepoDbContext = peopleRepoDbContext;
         }
 
@@ -34,18 +38,6 @@ namespace MVCData.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-
-            //PeopleViewModel peopleVM = new PeopleViewModel();
-
-            //peopleVM.CreatePerson = new CreatePersonViewModel
-            //{
-            //    SelectCity = new SelectList(_peopleRepoDbContext.Cities, "CityId", "Name")
-            //};
-
-
-            //TestSetup();
-            
-
             return View();
         }
 
@@ -113,6 +105,10 @@ namespace MVCData.Controllers
         //    else return View(_peopleService.All());
         //}
 
+        public void Init()
+        {
+        }
+
 
         [HttpPost]
         public IActionResult Index(PeopleViewModel peopleVM)
@@ -122,8 +118,28 @@ namespace MVCData.Controllers
             return PartialView("_PeopleView", result);
         }
 
+        [HttpPost]
+        public IActionResult AddLanguage(int id)
+        {
+            AddLanguageViewModel addLanguageView = new AddLanguageViewModel()
+            {
+                PersonId = id,
+                AvailableLanguages = _languageRepo.Read()
+            };
+            return PartialView("_AddLanguageView", addLanguageView);
+        }
 
-      
+        [HttpPost]
+        public IActionResult AddLanguageToPerson(AddLanguageViewModel addLanguageView)
+        {
+            Person person = _peopleRepoDbContext.People.Find(addLanguageView.PersonId);
+            Language language = _peopleRepoDbContext.Languages.Find(addLanguageView.LanguageId);
+
+            _peopleService.AddLanguageToPerson(person, language);
+            return RedirectToAction(nameof(Index));
+        }
+
+
         [HttpPost]
         public IActionResult CreatePerson(PeopleViewModel peopleVM)
         

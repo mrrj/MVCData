@@ -10,6 +10,6 @@ namespace MVCData.Models.ViewModels
         public Person Person { get; set; }
         public City City { get; set; }
         public Country Country { get; set; }
-
+        public List<Language> Languages { get; set; }
     }
 }

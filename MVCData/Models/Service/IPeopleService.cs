@@ -24,5 +24,8 @@ namespace MVCData.Models.Service
 
         //public City AddCity();
         public Country GetCountry(int id);
+        public Language AddLanguage(string name);
+
+        public void AddLanguageToPerson(Person person, Language language);
     }
 }

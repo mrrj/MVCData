@@ -14,13 +14,18 @@ namespace MVCData.Models.Service
         IPeopleRepo _peopleRepo;
         ICountryRepo _countryRepo;
         ICityRepo _cityRepo;
+        ILanguageRepo _languageRepo;
+        PeopleRepoDbContext _peopleRepoDbContext;
         
 
-        public PeopleService(IPeopleRepo peopleRepo, ICountryRepo countryRepo, ICityRepo cityRepo)
+        public PeopleService(IPeopleRepo peopleRepo, ICountryRepo countryRepo, 
+            ICityRepo cityRepo, ILanguageRepo languageRepo, PeopleRepoDbContext peopleRepoDbContext)
         {
             _peopleRepo = peopleRepo;
             _countryRepo = countryRepo;
             _cityRepo = cityRepo;
+            _languageRepo = languageRepo;
+            _peopleRepoDbContext = peopleRepoDbContext;
         }
         public Person Add(CreatePersonViewModel person)
         {
@@ -104,9 +109,21 @@ namespace MVCData.Models.Service
             {
                 Person = pers,
                 City = GetCity(pers.CityId),
-                Country = GetCountry(pers.City.CountryId)
+                Country = GetCountry(pers.City.CountryId),
+                Languages = new List<Language>()
             };
 
+            foreach(PersonLanguage pl in _peopleRepoDbContext.PersonLanguages)
+            {
+                if(pl.PersonId == id)
+                {
+                    Language lang = _languageRepo.Read(pl.LanguageId);
+                    personDetails.Languages.Add(lang);
+                }
+                //Language lang = _languageRepo.Read(pl.LanguageId);
+                //personDetails.Languages.Add(lang);
+
+            }
             return personDetails;
         }
 
@@ -136,6 +153,24 @@ namespace MVCData.Models.Service
         public Country GetCountry(int id)
         {
             return _countryRepo.Read(id);
+        }
+
+        public Language AddLanguage(string name)
+        {
+            return _languageRepo.Create(name);
+
+        }
+
+        public void AddLanguageToPerson(Person person, Language language)
+        {
+            PersonLanguage personLanguage = new PersonLanguage();
+            personLanguage.Person = person;
+            personLanguage.Language = language;
+            person.PersonLanguages.Add(personLanguage);
+            _peopleRepo.Update(person);
+            language.PersonLanguages.Add(personLanguage);
+            _languageRepo.Update(language);
+
         }
     }
 }

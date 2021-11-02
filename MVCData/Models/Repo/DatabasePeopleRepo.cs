@@ -57,13 +57,11 @@ namespace MVCData.Models.Repo
 
         public Person Update(Person person)
         {
-            Person pers =
-                (Person)(from p in _peopleRepoDbContext.People
-                where p.Id == person.Id
-                select p);
+            Person pers = _peopleRepoDbContext.People.Find(person.Id);
             pers.Name = person.Name;
             pers.City = person.City;
             pers.PhoneNumber = person.PhoneNumber;
+            pers.PersonLanguages = person.PersonLanguages;
             _peopleRepoDbContext.SaveChanges();
 
             return pers;
