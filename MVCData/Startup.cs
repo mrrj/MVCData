@@ -31,7 +31,7 @@ namespace MVCData
         {
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddDefaultTokenProviders()
                 .AddDefaultUI()
                 .AddEntityFrameworkStores<MVCDataContext>();

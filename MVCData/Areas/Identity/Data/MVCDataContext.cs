@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using MVCData.Models;
 
 namespace MVCData.Data
 {
-    public class MVCDataContext : IdentityDbContext<IdentityUser>
+    public class MVCDataContext : IdentityDbContext<ApplicationUser>
     {
         public MVCDataContext(DbContextOptions<MVCDataContext> options)
             : base(options)
@@ -22,5 +23,7 @@ namespace MVCData.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
+
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
     }
 }
