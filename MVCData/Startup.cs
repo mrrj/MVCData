@@ -13,6 +13,7 @@ using MVCData.Data;
 using MVCData.Models.Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity;
 
 namespace MVCData
 {
@@ -29,8 +30,11 @@ namespace MVCData
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
-            services.AddMvc();
+            services.AddRazorPages();
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddDefaultTokenProviders()
+                .AddDefaultUI()
+                .AddEntityFrameworkStores<MVCDataContext>();
 
             services.AddScoped<IPeopleRepo, DatabasePeopleRepo>();
             services.AddScoped<ICountryRepo, CountryRepo>();
@@ -58,6 +62,7 @@ namespace MVCData
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
@@ -65,6 +70,7 @@ namespace MVCData
                     name: "default",
                     pattern: "{controller=People}/{action=Index}/{id?}"
                     );
+                endpoints.MapRazorPages();
             });
         }
     }
