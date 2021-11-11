@@ -1,25 +1,37 @@
-﻿@model CitiesAndCountriesViewModel 
+﻿@model CitiesAndCountriesViewModel
 @{
     ViewData["Title"] = "Cities and Countries";
 }
 
 
 
-@if(User.IsInRole("Admin")){
+@if (User.IsInRole("Admin"))
+{
 
-//TODO:
-//view list of countries
-//create country
-//edit country
-//delete country
+    //TODO:
+    //view list of countries
+    //create country
+    //edit country
+    //delete country
+
+    <p>hello!</p>
+
+    <button type="button" asp-controller="People" asp-action="ShowCountries"
+            data-target="viewContainer" id="countriesButton">
+        Countries
+    </button>
+
+    <button type="button" asp-controller="People" asp-action="ShowCities"
+            data-target="viewContainer" id="citiesButton">
+        Cities
+    </button>
 
 
-
-//TODO:
-//view list of cities
-//create city
-//edit city
-//delete city
+    //TODO:
+    //view list of cities
+    //create city
+    //edit city
+    //delete city
 
 }
 

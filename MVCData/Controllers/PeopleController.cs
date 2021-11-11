@@ -155,5 +155,32 @@ namespace MVCData.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult CitiesAndCountries()
+        {
+            CitiesAndCountriesViewModel cityCountryView = new CitiesAndCountriesViewModel();
+
+            return PartialView("CitiesAndCountries", cityCountryView);
+        }
+
+        [HttpGet]
+        public IActionResult ShowCountries()
+        {
+            CitiesAndCountriesViewModel cityCountryView = new CitiesAndCountriesViewModel();
+            cityCountryView.Countries = _countryRepo.Read();
+
+            return PartialView("_CountriesPartialView", cityCountryView);
+        }
+
+        [HttpGet]
+        public IActionResult ShowCities()
+        {
+            CitiesAndCountriesViewModel cityCountryView = new CitiesAndCountriesViewModel();
+            cityCountryView.Cities = _cityRepo.Read();
+
+            return PartialView("_CitiesPartialView", cityCountryView);
+        }
+
+
+
     }
 }
