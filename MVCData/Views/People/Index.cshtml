@@ -3,94 +3,107 @@
     ViewData["Title"] = "People";
 }
 
-<h1>People</h1>
+@if (User.IsInRole("User") || User.IsInRole("Admin"))
+{
+    <h3>Search</h3>
 
-<h3>Search</h3>
+    <form asp-action="Index" method="post">
+        <label asp-for="SearchPhrase"></label>
+        <input asp-for="SearchPhrase" />
+    </form>
 
-<form asp-action="Index" method="post">
-    <label asp-for="SearchPhrase"></label>
-    <input asp-for="SearchPhrase" />
-</form>
+    <h3>Add Person</h3>
+    <form asp-action="CreatePerson" asp-controller="People" method="post">
 
-<h3>Add Person</h3>
-<form asp-action="CreatePerson" asp-controller="People" method="post">
-
-    <label asp-for="CreatePerson.Name"></label>
-    <input asp-for="CreatePerson.Name" />
-    <span asp-validation-for="CreatePerson.Name"></span>
-
-
-    <label asp-for="CreatePerson.CityId"></label>
-    <input asp-for="CreatePerson.CityId" />
-    <span asp-validation-for="CreatePerson.CityId"></span>
+        <label asp-for="CreatePerson.Name"></label>
+        <input asp-for="CreatePerson.Name" />
+        <span asp-validation-for="CreatePerson.Name"></span>
 
 
-    @*<label asp-for="CreatePerson.CityId">City:</label>
-        <select asp-for="CreatePerson.CityId" class="form-control" asp-items="@Model.CreatePerson.SelectCity"></select>
-        <span asp-validation-for="CreatePerson.CityId"></span>*@
-
-    <label asp-for="CreatePerson.PhoneNumber"></label>
-    <input asp-for="CreatePerson.PhoneNumber" />
-    <span asp-validation-for="CreatePerson.PhoneNumber"></span>
-
-    <button type="submit">Create</button>
-    <button type="reset">Reset</button>
-</form>
-
-<br />
-
-<button type="button" asp-controller="People" asp-action="ShowPeople"
-        data-target="peopleView" id="peopleButton">
-    People
-</button>
-
-<label for="id">Enter ID:</label>
-<input type="number" id="id" />
-<button type="submit" asp-controller="People" asp-action="Details"
-        id="detailsButton" data-target="peopleView">
-    Get Details
-</button>
-<button type="submit" asp-controller="People" asp-action="Delete"
-        id="deleteButton" data-target="peopleView">
-    Delete
-</button>
-<button type="submit" asp-controller="People" asp-action="AddLanguage"
-        id="languageButton" data-target="peopleView">
-    Add language
-</button>
-
-<div id="peopleView"></div>
+        <label asp-for="CreatePerson.CityId"></label>
+        <input asp-for="CreatePerson.CityId" />
+        <span asp-validation-for="CreatePerson.CityId"></span>
 
 
-<script>
-    $("#peopleButton").click(function (e) {
-        $.get("People/ShowPeople", function (res) {
-            $("#peopleView").html(res);
+        @*<label asp-for="CreatePerson.CityId">City:</label>
+            <select asp-for="CreatePerson.CityId" class="form-control" asp-items="@Model.CreatePerson.SelectCity"></select>
+            <span asp-validation-for="CreatePerson.CityId"></span>*@
+
+        <label asp-for="CreatePerson.PhoneNumber"></label>
+        <input asp-for="CreatePerson.PhoneNumber" />
+        <span asp-validation-for="CreatePerson.PhoneNumber"></span>
+
+        <button type="submit">Create</button>
+        <button type="reset">Reset</button>
+    </form>
+
+    <br />
+
+    <button type="button" asp-controller="People" asp-action="ShowPeople"
+            data-target="peopleView" id="peopleButton">
+        People
+    </button>
+
+    <label for="id">Enter ID:</label>
+    <input type="number" id="id" />
+    <button type="submit" asp-controller="People" asp-action="Details"
+            id="detailsButton" data-target="peopleView">
+        Get Details
+    </button>
+
+    <button type="submit" asp-controller="People" asp-action="AddLanguage"
+            id="languageButton" data-target="peopleView">
+        Add language
+    </button>
+    //TODO
+    @*<button type="submit" asp-controller="People" asp-action="EditPerson"
+            id="languageButton" data-target="peopleView">
+        Edit
+    </button>*@
+
+if (User.IsInRole("Admin"))
+{
+    <button type="submit" asp-controller="People" asp-action="Delete"
+            id="deleteButton" data-target="peopleView">
+        Delete
+    </button>
+ }
+
+    <div id="peopleView"></div>
+
+
+    <script>
+        $("#peopleButton").click(function (e) {
+            $.get("People/ShowPeople", function (res) {
+                $("#peopleView").html(res);
+            });
         });
-    });
 
-    $("#detailsButton").click(function (e) {
-        let id = $("#id").val();
-        $.post("People/Details/" + id, function (res) {
-            $("#peopleView").html(res);
+        $("#detailsButton").click(function (e) {
+            let id = $("#id").val();
+            $.post("People/Details/" + id, function (res) {
+                $("#peopleView").html(res);
+            });
         });
-    });
 
-    $("#deleteButton").click(function (e) {
-        let id = $("#id").val();
-        $.post("People/Delete/" + id, function (res) {
-            $("#peopleView").html(res);
+        $("#deleteButton").click(function (e) {
+            let id = $("#id").val();
+            $.post("People/Delete/" + id, function (res) {
+                $("#peopleView").html(res);
+            });
         });
-    });
 
-    $("#languageButton").click(function (e) {
-        e.preventDefault();
-        let id = $("#id").val();
-        $.post("People/AddLanguage/" + id, function (res) {
-            $("#peopleView").html(res);
+        $("#languageButton").click(function (e) {
+            e.preventDefault();
+            let id = $("#id").val();
+            $.post("People/AddLanguage/" + id, function (res) {
+                $("#peopleView").html(res);
+            });
         });
-    });
-</script>
+    </script>
+
+}
+
 
 
 
