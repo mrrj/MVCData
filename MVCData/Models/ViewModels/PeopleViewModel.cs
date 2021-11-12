@@ -18,6 +18,9 @@ namespace MVCData.Models.ViewModels
         public List<Person> People { get => people; set => people = value; }
         public CreatePersonViewModel CreatePerson { get => createPerson; set => createPerson = value; }
 
+        public List<Country> Countries { get; set; }
+        public List<City> Cities { get; set; }
+
     }
 
 

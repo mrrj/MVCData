@@ -155,29 +155,24 @@ namespace MVCData.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult CitiesAndCountries()
-        {
-            CitiesAndCountriesViewModel cityCountryView = new CitiesAndCountriesViewModel();
 
-            return PartialView("CitiesAndCountries", cityCountryView);
-        }
 
         [HttpGet]
         public IActionResult ShowCountries()
         {
-            CitiesAndCountriesViewModel cityCountryView = new CitiesAndCountriesViewModel();
-            cityCountryView.Countries = _countryRepo.Read();
+            PeopleViewModel peopleView = new PeopleViewModel();
+            peopleView.Countries = _countryRepo.Read();
 
-            return PartialView("_CountriesPartialView", cityCountryView);
+            return PartialView("_CountriesPartialView", peopleView);
         }
 
         [HttpGet]
         public IActionResult ShowCities()
         {
-            CitiesAndCountriesViewModel cityCountryView = new CitiesAndCountriesViewModel();
-            cityCountryView.Cities = _cityRepo.Read();
+            PeopleViewModel peopleView = new PeopleViewModel();
+            peopleView.Cities = _cityRepo.Read();
 
-            return PartialView("_CitiesPartialView", cityCountryView);
+            return PartialView("_CitiesPartialView", peopleView);
         }
 
 

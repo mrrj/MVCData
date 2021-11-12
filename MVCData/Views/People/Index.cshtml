@@ -57,17 +57,17 @@
     </button>
     //TODO
     @*<button type="submit" asp-controller="People" asp-action="EditPerson"
-            id="languageButton" data-target="peopleView">
-        Edit
-    </button>*@
+                id="languageButton" data-target="peopleView">
+            Edit
+        </button>*@
 
-if (User.IsInRole("Admin"))
-{
-    <button type="submit" asp-controller="People" asp-action="Delete"
-            id="deleteButton" data-target="peopleView">
-        Delete
-    </button>
- }
+    if (User.IsInRole("Admin"))
+    {
+        <button type="submit" asp-controller="People" asp-action="Delete"
+                id="deleteButton" data-target="peopleView">
+            Delete
+        </button>
+    }
 
     <div id="peopleView"></div>
 
@@ -101,6 +101,50 @@ if (User.IsInRole("Admin"))
             });
         });
     </script>
+
+    @if (User.IsInRole("Admin"))
+    {
+
+        //TODO:
+        //view list of countries
+        //create country
+        //edit country
+        //delete country
+
+        <p>hello!</p>
+
+        <button type="button" asp-controller="People" asp-action="ShowCountries"
+                data-target="peopleView" id="countriesButton">
+            Countries
+        </button>
+
+        <button type="button" asp-controller="People" asp-action="ShowCities"
+                data-target="peopleView" id="citiesButton">
+            Cities
+        </button>
+
+        //<div id="viewContainer"></div>
+
+        //TODO:
+        //view list of cities
+        //create city
+        //edit city
+        //delete city
+
+        <script>
+            $("#countriesButton").click(function (e) {
+                $.get("People/ShowCountries", function (res) {
+                    $("#peopleView").html(res);
+                });
+            });
+            $("#citiesButton").click(function (e) {
+                $.get("People/ShowCities", function (res) {
+                    $("#peopleView").html(res);
+                });
+            });
+        </script>
+    }
+
 
 }
 
