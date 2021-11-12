@@ -8,6 +8,12 @@
         <div class="col">
             <h5>ID</h5>
         </div>
+        <div class="col">
+            <h5>Edit</h5>
+        </div>
+        <div class="col">
+            <h5>Delete</h5>
+        </div>
     </div>
 </div>
 
@@ -22,6 +28,39 @@
             <div class="col">
                 <p>@country.CountryId</p>
             </div>
+            <div class="col">
+                <button type="button" asp-controller="People" asp-action="EditCountry"
+                        data-target="peopleView" id="editCountryButton">
+                    Edit
+                </button>
+            </div>
+            <div class="col">
+                <button onclick="deleteCountry(@country.CountryId)">Delete</button>
+            </div>
         </div>
     </div>
 }
+
+<script>
+            //$("#countriesButton").click(function (e) {
+            //    $.get("People/ShowCountries", function (res) {
+            //        $("#peopleView").html(res);
+            //    });
+            //});
+    //$("#deleteCountryButton").click(function (e) {
+    //    let id = $("#id").val();
+    //    e.preventDefault();
+    //    $.post("People/DeleteCountry" + id, function (res) {
+    //        $("#peopleView").html(res);
+    //    });
+    //});
+    function deleteCountry(e) {
+        let id = e;
+        var url = "People/DeleteCountry/" + id;
+        $.post(url, function (res) {
+            $("#peopleView").html(res);
+        });
+    }
+
+
+</script>

@@ -38,7 +38,10 @@ namespace MVCData.Models.Service
 
         public City AddCity(string name, Country country)
         {
-            return _cityRepo.Create(name, country);
+            City city =  _cityRepo.Create(name, country);
+            city.Country = country;
+            _cityRepo.Update(city);
+            return city;
         }
 
         public Country AddCountry(string name)
@@ -171,6 +174,23 @@ namespace MVCData.Models.Service
             language.PersonLanguages.Add(personLanguage);
             _languageRepo.Update(language);
 
+        }
+
+        public List<Country> AllCountries()
+        {
+            return _countryRepo.Read();
+        }
+
+        public bool RemoveCountry(int id)
+        {
+            Country country = GetCountry(id);
+            return _countryRepo.Delete(country);
+        }
+
+        public bool RemoveCity(int id)
+        {
+            City city = GetCity(id);
+            return _cityRepo.Delete(city);
         }
     }
 }

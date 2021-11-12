@@ -161,16 +161,31 @@ namespace MVCData.Controllers
         public IActionResult ShowCountries()
         {
             PeopleViewModel peopleView = new PeopleViewModel();
-            peopleView.Countries = _countryRepo.Read();
+            peopleView.Countries = _peopleService.AllCountries();
 
             return PartialView("_CountriesPartialView", peopleView);
+        }
+
+        public IActionResult DeleteCountry(int id)
+        {
+            if (_peopleService.RemoveCountry(id))
+            {
+                int status = Response.StatusCode = (int)HttpStatusCode.OK;
+                return Json(status + ": Country was deleted");
+            }
+            else
+            {
+                int status = (int)HttpStatusCode.BadRequest;
+                return Json(status + ": Could not find country");
+            }
+
         }
 
         [HttpGet]
         public IActionResult ShowCities()
         {
             PeopleViewModel peopleView = new PeopleViewModel();
-            peopleView.Cities = _cityRepo.Read();
+            peopleView.Cities = _peopleService.AllCities();
 
             return PartialView("_CitiesPartialView", peopleView);
         }

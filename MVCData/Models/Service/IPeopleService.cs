@@ -8,22 +8,25 @@ namespace MVCData.Models.Service
 {
     public interface IPeopleService
     {
-        public City AddCity(string name, Country country);
-        public Country AddCountry(string name);
+        
         Person Add(CreatePersonViewModel person);
         PeopleViewModel All();
         PeopleViewModel FindBy(PeopleViewModel search);
         Person FindBy(int id);
         Person Edit(int id, Person person);
         bool Remove(int id);
-
         PersonDetailsViewModel FindById(int id);
 
-        public City GetCity(int id);
-        public List<City> AllCities();
 
-        //public City AddCity();
+        public City AddCity(string name, Country country);
+        public Country AddCountry(string name);
+        public City GetCity(int id);
         public Country GetCountry(int id);
+        public List<City> AllCities();
+        public List<Country> AllCountries();
+        public bool RemoveCountry(int id);
+        public bool RemoveCity(int id);
+
         public Language AddLanguage(string name);
 
         public void AddLanguageToPerson(Person person, Language language);
