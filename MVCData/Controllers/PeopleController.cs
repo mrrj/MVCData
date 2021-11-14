@@ -180,6 +180,19 @@ namespace MVCData.Controllers
             }
 
         }
+        public IActionResult CreateCountry(PeopleViewModel peopleView)
+        {
+            CreateCountryViewModel createCountry = peopleView.CreateCountry;
+
+            if (ModelState.IsValid)
+            {
+
+                _peopleService.AddCountry(createCountry.Name);
+
+            }
+            return RedirectToAction(nameof(Index));
+
+        }
 
         [HttpGet]
         public IActionResult ShowCities()
@@ -190,6 +203,35 @@ namespace MVCData.Controllers
             return PartialView("_CitiesPartialView", peopleView);
         }
 
+        public IActionResult DeleteCity(int id)
+        {
+            if (_peopleService.RemoveCity(id))
+            {
+                int status = Response.StatusCode = (int)HttpStatusCode.OK;
+                return Json(status + ": City was deleted");
+            }
+            else
+            {
+                int status = (int)HttpStatusCode.BadRequest;
+                return Json(status + ": Could not find city");
+            }
+
+        }
+        public IActionResult CreateCity(PeopleViewModel peopleView)
+        {
+            CreateCityViewModel createCity = peopleView.CreateCity;
+
+            if (ModelState.IsValid)
+            {
+
+                string name = createCity.Name;
+                Country country = _peopleService.GetCountry(createCity.CountryId);
+                _peopleService.AddCity(name, country);
+
+            }
+            return RedirectToAction(nameof(Index));
+
+        }
 
 
     }

@@ -25,10 +25,6 @@
         <span asp-validation-for="CreatePerson.CityId"></span>
 
 
-        @*<label asp-for="CreatePerson.CityId">City:</label>
-            <select asp-for="CreatePerson.CityId" class="form-control" asp-items="@Model.CreatePerson.SelectCity"></select>
-            <span asp-validation-for="CreatePerson.CityId"></span>*@
-
         <label asp-for="CreatePerson.PhoneNumber"></label>
         <input asp-for="CreatePerson.PhoneNumber" />
         <span asp-validation-for="CreatePerson.PhoneNumber"></span>
@@ -106,10 +102,8 @@
     {
 
         //TODO:
-        //view list of countries
-        //create country
         //edit country
-        //delete country
+
 
 
         <button type="button" asp-controller="People" asp-action="ShowCountries"
@@ -121,6 +115,16 @@
                 data-target="peopleView" id="citiesButton">
             Cities
         </button>
+
+        @*<button type="button" asp-controller="People" asp-action="CreateCountry"
+                data-target="peopleView" id="createCountryButton">
+            Countries
+        </button>
+
+        <button type="button" asp-controller="People" asp-action="ShowCities"
+                data-target="peopleView" id="citiesButton">
+            Cities
+        </button>*@
 
 
         //TODO:
@@ -141,6 +145,19 @@
                 });
             });
         </script>
+
+        <h3>Add Country</h3>
+        <form asp-action="CreateCountry" asp-controller="People" method="post">
+
+            <label asp-for="CreateCountry.Name"></label>
+            <input asp-for="CreateCountry.Name" />
+            <span asp-validation-for="CreateCountry.Name"></span>
+
+            <button type="submit">Create</button>
+            <button type="reset">Reset</button>
+        </form>
+
+        <br />
     }
 
 
