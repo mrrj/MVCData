@@ -199,6 +199,10 @@ namespace MVCData.Controllers
         {
             PeopleViewModel peopleView = new PeopleViewModel();
             peopleView.Cities = _peopleService.AllCities();
+            foreach(City city in peopleView.Cities)
+            {
+                city.Country = _peopleService.GetCountry(city.CountryId);
+            }
 
             return PartialView("_CitiesPartialView", peopleView);
         }

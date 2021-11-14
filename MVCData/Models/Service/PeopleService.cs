@@ -39,8 +39,8 @@ namespace MVCData.Models.Service
         public City AddCity(string name, Country country)
         {
             City city =  _cityRepo.Create(name, country);
-            city.Country = country;
-            _cityRepo.Update(city);
+            //city.Country = country;
+            //_cityRepo.Update(city);
             return city;
         }
 
@@ -146,7 +146,9 @@ namespace MVCData.Models.Service
 
         public City GetCity(int id)
         {
-            return _cityRepo.Read(id);
+            City city = _cityRepo.Read(id);
+            //city.Country = GetCountry(city.CountryId);
+            return city;
         }
 
         public List<City> AllCities()

@@ -24,7 +24,8 @@ namespace MVCData.Models.Repo
             {
                 City city = new City
                 {
-                    Name = name
+                    Name = name,
+                    Country = country
                 };
                 country.Cities.Add(city);
                 _context.Cities.Add(city);

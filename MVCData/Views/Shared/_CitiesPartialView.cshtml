@@ -32,6 +32,28 @@
             <div class="col">
                 <p>@city.CityId</p>
             </div>
+            <div class="col">
+                <p>@city.Country.Name</p>
+            </div>
+            <div class="col">
+                <button type="button" asp-controller="People" asp-action="EditCity"
+                        data-target="peopleView" id="editCityButton">
+                    Edit
+                </button>
+            </div>
+            <div class="col">
+                <button onclick="deleteCity(@city.CityId)">Delete</button>
+            </div>
         </div>
     </div>
 }
+
+<script>
+    function deleteCity(e) {
+        let id = e;
+        var url = "People/DeleteCity/" + id;
+        $.post(url, function (res) {
+            $("#peopleView").html(res);
+        });
+    }
+</script>

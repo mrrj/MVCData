@@ -116,15 +116,6 @@
             Cities
         </button>
 
-        @*<button type="button" asp-controller="People" asp-action="CreateCountry"
-                data-target="peopleView" id="createCountryButton">
-            Countries
-        </button>
-
-        <button type="button" asp-controller="People" asp-action="ShowCities"
-                data-target="peopleView" id="citiesButton">
-            Cities
-        </button>*@
 
 
         //TODO:
@@ -157,6 +148,22 @@
             <button type="reset">Reset</button>
         </form>
 
+        <br />
+
+        <h3>Add City</h3>
+        <form asp-action="CreateCity" asp-controller="People" method="post">
+
+            <label asp-for="CreateCity.Name"></label>
+            <input asp-for="CreateCity.Name" />
+            <span asp-validation-for="CreateCity.Name"></span>
+
+            <label asp-for="CreateCity.CountryId"></label>
+            <input asp-for="CreateCity.CountryId" />
+            <span asp-validation-for="CreateCity.CountryId"></span>
+
+            <button type="submit">Create</button>
+            <button type="reset">Reset</button>
+        </form>
         <br />
     }
 
