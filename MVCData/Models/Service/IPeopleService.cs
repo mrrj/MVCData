@@ -26,9 +26,12 @@ namespace MVCData.Models.Service
         public List<Country> AllCountries();
         public bool RemoveCountry(int id);
         public bool RemoveCity(int id);
+        public Country EditCountry(Country country);
 
+        public City EditCity(City city);
         public Language AddLanguage(string name);
 
         public void AddLanguageToPerson(Person person, Language language);
+
     }
 }

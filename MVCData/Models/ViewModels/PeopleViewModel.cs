@@ -24,6 +24,11 @@ namespace MVCData.Models.ViewModels
         public CreateCountryViewModel CreateCountry {get;set;}
         public CreateCityViewModel CreateCity { get; set; }
 
+        public EditCountryViewModel EditCountry { get; set; }
+        public EditCityViewModel EditCity { get; set; }
+
+        public EditPersonViewModel EditPerson { get; set; }
+
     }
 
 

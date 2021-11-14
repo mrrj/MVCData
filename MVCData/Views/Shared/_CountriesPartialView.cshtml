@@ -1,64 +1,76 @@
 ﻿@model PeopleViewModel
 
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <h5>Name</h5>
-        </div>
-        <div class="col">
-            <h5>ID</h5>
-        </div>
-        <div class="col">
-            <h5>Edit</h5>
-        </div>
-        <div class="col">
-            <h5>Delete</h5>
-        </div>
-    </div>
-</div>
-
-
-@foreach (Country country in @Model.Countries)
+@if (User.IsInRole("Admin"))
 {
     <div class="container">
         <div class="row">
             <div class="col">
-                <p>@country.Name</p>
+                <h5>Name</h5>
             </div>
             <div class="col">
-                <p>@country.CountryId</p>
+                <h5>ID</h5>
             </div>
             <div class="col">
-                <button type="button" asp-controller="People" asp-action="EditCountry"
-                        data-target="peopleView" id="editCountryButton">
-                    Edit
-                </button>
-            </div>
-            <div class="col">
-                <button onclick="deleteCountry(@country.CountryId)">Delete</button>
+                <h5>Delete</h5>
             </div>
         </div>
     </div>
-}
 
-<script>
-            //$("#countriesButton").click(function (e) {
-            //    $.get("People/ShowCountries", function (res) {
-            //        $("#peopleView").html(res);
-            //    });
-            //});
-    //$("#deleteCountryButton").click(function (e) {
-    //    $.post("People/DeleteCountry/", function (res) {
-    //        $("#peopleView").html(res);
-    //    });
-    //});
-    function deleteCountry(e) {
-        let id = e;
-        var url = "People/DeleteCountry/" + id;
-        $.post(url, function (res) {
-            $("#peopleView").html(res);
-        });
+
+    @foreach (Country country in @Model.Countries)
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p>@country.Name</p>
+                </div>
+                <div class="col">
+                    <p>@country.CountryId</p>
+                </div>
+                <div class="col">
+                    <button onclick="deleteCountry(@country.CountryId)">Delete</button>
+                </div>
+            </div>
+        </div>
     }
 
+    <h3>Add Country</h3>
+    <form asp-action="CreateCountry" asp-controller="People" method="post">
 
-</script>
+        <label asp-for="CreateCountry.Name"></label>
+        <input asp-for="CreateCountry.Name" />
+        <span asp-validation-for="CreateCountry.Name"></span>
+
+        <button type="submit">Create</button>
+        <button type="reset">Reset</button>
+    </form>
+    <br />
+
+    <h3>Edit Country</h3>
+    <form asp-action="EditCountry" asp-controller="People" method="post">
+
+        <label asp-for="EditCountry.Id"></label>
+        <input asp-for="EditCountry.Id" />
+        <span asp-validation-for="EditCountry.Id"></span>
+
+        <label asp-for="EditCountry.NewName"></label>
+        <input asp-for="EditCountry.NewName" />
+        <span asp-validation-for="EditCountry.NewName"></span>
+
+        <button type="submit">Edit</button>
+        <button type="reset">Reset</button>
+    </form>
+    <br />
+
+    <script>
+        function deleteCountry(e) {
+            let id = e;
+            var url = "People/DeleteCountry/" + id;
+            $.post(url, function (res) {
+                $("#peopleView").html(res);
+            });
+        }
+    </script>
+
+
+}

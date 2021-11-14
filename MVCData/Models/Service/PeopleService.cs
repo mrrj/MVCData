@@ -194,5 +194,15 @@ namespace MVCData.Models.Service
             City city = GetCity(id);
             return _cityRepo.Delete(city);
         }
+
+        public Country EditCountry(Country country)
+        {
+            return _countryRepo.Update(country);
+        }
+
+        public City EditCity(City city)
+        {
+            return _cityRepo.Update(city);
+        }
     }
 }

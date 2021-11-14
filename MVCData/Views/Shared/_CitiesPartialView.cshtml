@@ -1,59 +1,90 @@
 ﻿
 @model PeopleViewModel
 
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <h5>Name</h5>
-        </div>
-        <div class="col">
-            <h5>ID</h5>
-        </div>
-        <div class="col">
-            <h5>Country</h5>
-        </div>
-        <div class="col">
-            <h5>Edit</h5>
-        </div>
-        <div class="col">
-            <h5>Delete</h5>
-        </div>
-    </div>
-</div>
-
-
-@foreach (City city in @Model.Cities)
+@if (User.IsInRole("Admin"))
 {
+
     <div class="container">
         <div class="row">
             <div class="col">
-                <p>@city.Name</p>
+                <h5>Name</h5>
             </div>
             <div class="col">
-                <p>@city.CityId</p>
+                <h5>ID</h5>
             </div>
             <div class="col">
-                <p>@city.Country.Name</p>
+                <h5>Country</h5>
             </div>
             <div class="col">
-                <button type="button" asp-controller="People" asp-action="EditCity"
-                        data-target="peopleView" id="editCityButton">
-                    Edit
-                </button>
-            </div>
-            <div class="col">
-                <button onclick="deleteCity(@city.CityId)">Delete</button>
+                <h5>Delete</h5>
             </div>
         </div>
     </div>
+
+
+    @foreach (City city in @Model.Cities)
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p>@city.Name</p>
+                </div>
+                <div class="col">
+                    <p>@city.CityId</p>
+                </div>
+                <div class="col">
+                    <p>@city.Country.Name</p>
+                </div>
+                <div class="col">
+                    <button onclick="deleteCity(@city.CityId)">Delete</button>
+                </div>
+            </div>
+        </div>
+    }
+
+    <h3>Add City</h3>
+    <form asp-action="CreateCity" asp-controller="People" method="post">
+
+        <label asp-for="CreateCity.Name"></label>
+        <input asp-for="CreateCity.Name" />
+        <span asp-validation-for="CreateCity.Name"></span>
+
+        <label asp-for="CreateCity.CountryId"></label>
+        <input asp-for="CreateCity.CountryId" />
+        <span asp-validation-for="CreateCity.CountryId"></span>
+
+        <button type="submit">Create</button>
+        <button type="reset">Reset</button>
+    </form>
+    <br />
+
+    <h3>Edit City</h3>
+    <form asp-action="EditCity" asp-controller="People" method="post">
+
+        <label asp-for="EditCity.Id"></label>
+        <input asp-for="EditCity.Id" />
+        <span asp-validation-for="EditCity.Id"></span>
+
+        <label asp-for="EditCity.NewName"></label>
+        <input asp-for="EditCity.NewName" />
+        <span asp-validation-for="EditCity.NewName"></span>
+
+        <button type="submit">Edit</button>
+        <button type="reset">Reset</button>
+    </form>
+    <br />
+
+    <script>
+        function deleteCity(e) {
+            let id = e;
+            var url = "People/DeleteCity/" + id;
+            $.post(url, function (res) {
+                $("#peopleView").html(res);
+            });
+        }
+    </script>
+
+
 }
 
-<script>
-    function deleteCity(e) {
-        let id = e;
-        var url = "People/DeleteCity/" + id;
-        $.post(url, function (res) {
-            $("#peopleView").html(res);
-        });
-    }
-</script>
+

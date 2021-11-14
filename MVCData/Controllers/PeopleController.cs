@@ -194,6 +194,21 @@ namespace MVCData.Controllers
 
         }
 
+        public IActionResult EditCountry(PeopleViewModel peopleView)
+        {
+            EditCountryViewModel editCountry = peopleView.EditCountry;
+
+            if (ModelState.IsValid)
+            {
+                Country country = _peopleService.GetCountry(editCountry.Id);
+                country.Name = editCountry.NewName;
+                _peopleService.EditCountry(country);
+
+            }
+            return RedirectToAction(nameof(Index));
+
+        }
+
         [HttpGet]
         public IActionResult ShowCities()
         {
@@ -237,6 +252,39 @@ namespace MVCData.Controllers
 
         }
 
+        public IActionResult EditCity(PeopleViewModel peopleView)
+        {
+            EditCityViewModel editCity = peopleView.EditCity;
+
+            if (ModelState.IsValid)
+            {
+                City city = _peopleService.GetCity(editCity.Id);
+                city.Name = editCity.NewName;
+                _peopleService.EditCity(city);
+
+            }
+            return RedirectToAction(nameof(Index));
+
+        }
+
+        public IActionResult EditPerson(PeopleViewModel peopleView)
+        {
+            EditPersonViewModel editPerson = peopleView.EditPerson;
+
+            if (ModelState.IsValid)
+            {
+                Person person = _peopleService.FindBy(editPerson.Id);
+                City city = _peopleService.GetCity(editPerson.NewCityId);
+                person.City = city;
+                person.CityId = editPerson.NewCityId;
+                person.Name = editPerson.NewName;
+                person.PhoneNumber = editPerson.NewPhoneNumber;
+                _peopleService.Edit(editPerson.Id, person);
+
+            }
+            return RedirectToAction(nameof(Index));
+
+        }
 
     }
 }
